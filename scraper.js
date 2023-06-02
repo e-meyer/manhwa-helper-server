@@ -12,7 +12,6 @@ async function scrapeWebsite(url) {
     // const 
 
     const luminousData = [];
-    websiteOrder.push('Luminous');
 
     for (const manhwaTitle of manhwaTitles) {
       // The titles are duplicated, only titles that don't have the rel attribute should be added
