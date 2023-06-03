@@ -13,9 +13,9 @@ def scrape_data():
             "a.series",
         ),
         get_data(
-            "Asura",
-            "https://www.flamescans.org/",
-            ".tt",
+            "Flame",
+            "https://flamescans.org/",
+            "div.info > a > div.tt",
         ),
     ]
     return jsonify(results)
