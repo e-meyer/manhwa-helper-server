@@ -27,6 +27,10 @@ def scrape_data():
     threads.append(t2)
     t2.start()
 
+    t3 = threading.Thread(target=scrape_website, args=("Luminous", "https://luminousscans.com/", "div.luf > a.series"))
+    threads.append(t3)
+    t3.start()
+
     # Wait for all threads to complete
     for thread in threads:
         thread.join()
@@ -47,6 +51,11 @@ def get_data(website, url, selector):
             for element in html.css(selector)
             if "rel" not in element.attributes
         ]
+    elif website == "Luminous":
+        manhwa_titles = [
+            element.attributes.get('title', '').strip()
+            for element in html.css(selector)
+        ]
     else:
         manhwa_titles = [
             element.text().strip()
@@ -54,7 +63,7 @@ def get_data(website, url, selector):
         ]
     return {
         "website": website,
-        "manhwa_titles": manhwa_titles
+        "manhwa_titles": manhwa_titles[:10]
     }
 
 if __name__ == "__main__":
