@@ -1,64 +1,31 @@
 from flask import Flask, jsonify
 import httpx
 from selectolax.parser import HTMLParser
-import threading
 
 app = Flask(__name__)
 
-@app.route('/scrape', methods=['GET'])
+@app.route('/regular_scraper', methods=['GET'])
 def scrape_data():
-    threads = []
-
-    def scrape_website(website, url, title_selector, chapters_selector):
-        result = get_data(website, url, title_selector, chapters_selector)
-        results.append(result)
-
-    results = []
-
-    t1 = threading.Thread(
-        target=scrape_website,
-        args=("Asura",
-              "https://www.asurascans.com/",
-              "a.series",
-              "div.luf > ul > li > a"
-             ),
-        )
-    threads.append(t1)
-    t1.start()
-
-    t2 = threading.Thread(
-        target=scrape_website,
-        args=("Flame",
-              "https://flamescans.org/",
-              "div.info > a > div.tt",
-              "div.adds > div.epxs"
-             ),
-        )
-    threads.append(t2)
-    t2.start()
-
-    t3 = threading.Thread(
-        target=scrape_website,
-        args=("Luminous",
-              "https://luminousscans.com/",
-              "div.luf > a.series",
-              "div.luf > ul > li > a"
-             ),
-        )
-    threads.append(t3)
-    t3.start()
-
-
-    get_data(
+    results = [
+        get_data(
+            "Asura",
+            "https://www.asurascans.com/",
+            "a.series",
+            "div.luf > ul > li > a"
+        ),
+        get_data(
             "Flame",
             "https://flamescans.org/",
             "div.info > a > div.tt",
             "div.adds > div.epxs"
         ),
-
-    for thread in threads:
-        thread.join()
-
+        get_data(
+            "Luminous",
+            "https://luminousscans.com/",
+            "div.luf > a.series",
+            "div.luf > ul > li > a"
+        ),
+    ]
     return jsonify(results)
 
 def get_data(website, url, title_selector, chapters_selector):
@@ -114,8 +81,9 @@ def get_data(website, url, title_selector, chapters_selector):
             })
     return {
         "website": website,
-        "manhwa_data": manhwa_data[:10]
+        "manhwa_data": manhwa_data[:10],    
     }
 
 if __name__ == "__main__":
-    app.run()
+    port = 8000
+    app.run(port=port)
