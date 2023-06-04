@@ -11,21 +11,23 @@ def scrape_data():
             "Asura",
             "https://www.asurascans.com/",
             "a.series",
+            "div.luf > ul > li > a"
         ),
-        get_data(
-            "Flame",
-            "https://flamescans.org/",
-            "div.info > a > div.tt",
-        ),
+        # get_data(
+        #     "Flame",
+        #     "https://flamescans.org/",
+        #     "div.info > a > div.tt",
+        # ),
         get_data(
             "Luminous",
             "https://luminousscans.com/",
             "div.luf > a.series",
+            "div.luf > ul > li > a"
         ),
     ]
     return jsonify(results)
 
-def get_data(website, url, selector):
+def get_data(website, url, title_selector, chapters_selector):
     resp = httpx.get(
         url,
         headers={
@@ -34,24 +36,42 @@ def get_data(website, url, selector):
     )
     html = HTMLParser(resp.text)
     if website == "Asura":
-        manhwa_titles = [
+        titles = [
             element.text().strip()
-            for element in html.css(selector)
+            for element in html.css(title_selector)
             if "rel" not in element.attributes
         ]
+        items = html.css(chapters_selector)
+        chapters = [item.text().strip() for item in items]
+
+        manhwa_data = []
+        for i, title in enumerate(titles):
+            manhwa_data.append({
+                "title": title,
+                "chapters": chapters[i * 3: (i + 1) * 3]
+            })
     elif website == "Luminous":
-        manhwa_titles = [
+        titles = [
             element.attributes.get('title', '').strip()
-            for element in html.css(selector)
+            for element in html.css(title_selector)
         ]
+        items = html.css(chapters_selector)
+        chapters = [item.text().strip() for item in items]
+
+        manhwa_data = []
+        for i, title in enumerate(titles):
+            manhwa_data.append({
+                "title": title,
+                "chapters": chapters[i * 3: (i + 1) * 3]
+            })
     else:
         manhwa_titles = [
             element.text().strip()
-            for element in html.css(selector)
+            for element in html.css(title_selector)
         ]
     return {
         "website": website,
-        "manhwa_titles": manhwa_titles[:10]
+        "manhwa_data": manhwa_data[:10],    
     }
 
 if __name__ == "__main__":
