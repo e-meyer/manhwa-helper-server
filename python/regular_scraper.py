@@ -36,7 +36,7 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
         },
     )
-    html = HTMLParser(resp.text)
+
     manhwa_data = parse_data(resp, website, title_selector, chapters_selector, chapterlinks_selector)
 
     return {
