@@ -7,12 +7,12 @@ app = Flask(__name__)
 @app.route('/regular_scraper', methods=['GET'])
 def scrape_data():
     results = [
-        # get_data(
-        #     "Asura",
-        #     "https://www.asurascans.com/",
-        #     "a.series",
-        #     "div.luf > ul > li > a"
-        # ),
+        get_data(
+            "Asura",
+            "https://www.asurascans.com/",
+            "div.luf > a.series",
+            "div.luf > ul > li > a"
+        ),
         get_data(
             "Flame",
             "https://flamescans.org/",
@@ -29,7 +29,7 @@ def scrape_data():
     ]
     return jsonify(results)
 
-def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector):
+def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector=None):
     resp = httpx.get(
         url,
         headers={
@@ -39,18 +39,23 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
     html = HTMLParser(resp.text)
     if website == "Asura":
         titles = [
-            element.text().strip()
+            element.attributes.get('title', '').strip()
             for element in html.css(title_selector)
-            if "rel" not in element.attributes
         ]
         items = html.css(chapters_selector)
         chapters = [item.text().strip() for item in items]
+
+        chapters_links = [
+            element.attributes.get('href', '').strip()
+            for element in html.css(chapters_selector)
+        ]
 
         manhwa_data = []
         for i, title in enumerate(titles):
             manhwa_data.append({
                 "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3]
+                "chapters": chapters[i * 3: (i + 1) * 3],
+                "chapters_links": chapters_links[i * 3: (i + 1) * 3]
             })
     elif website == "Luminous":
         titles = [
