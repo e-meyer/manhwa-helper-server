@@ -7,37 +7,61 @@ app = Flask(__name__)
 
 @app.route('/scrape', methods=['GET'])
 def scrape_data():
-    # Create a list to hold the threads
     threads = []
 
-    # Create a function to handle each get_data call in a separate thread
-    def scrape_website(website, url, selector):
-        result = get_data(website, url, selector)
+    def scrape_website(website, url, title_selector, chapters_selector):
+        result = get_data(website, url, title_selector, chapters_selector)
         results.append(result)
 
-    # Create a list to store the results
     results = []
 
-    # Start a thread for each website
-    t1 = threading.Thread(target=scrape_website, args=("Asura", "https://www.asurascans.com/", "a.series"))
+    t1 = threading.Thread(
+        target=scrape_website,
+        args=("Asura",
+              "https://www.asurascans.com/",
+              "a.series",
+              "div.luf > ul > li > a"
+             ),
+        )
     threads.append(t1)
     t1.start()
 
-    t2 = threading.Thread(target=scrape_website, args=("Flame", "https://flamescans.org/", "div.info > a > div.tt"))
+    t2 = threading.Thread(
+        target=scrape_website,
+        args=("Flame",
+              "https://flamescans.org/",
+              "div.info > a > div.tt",
+              "div.adds > div.epxs"
+             ),
+        )
     threads.append(t2)
     t2.start()
 
-    t3 = threading.Thread(target=scrape_website, args=("Luminous", "https://luminousscans.com/", "div.luf > a.series"))
+    t3 = threading.Thread(
+        target=scrape_website,
+        args=("Luminous",
+              "https://luminousscans.com/",
+              "div.luf > a.series",
+              "div.luf > ul > li > a"
+             ),
+        )
     threads.append(t3)
     t3.start()
 
-    # Wait for all threads to complete
+
+    get_data(
+            "Flame",
+            "https://flamescans.org/",
+            "div.info > a > div.tt",
+            "div.adds > div.epxs"
+        ),
+
     for thread in threads:
         thread.join()
 
     return jsonify(results)
 
-def get_data(website, url, selector):
+def get_data(website, url, title_selector, chapters_selector):
     resp = httpx.get(
         url,
         headers={
@@ -46,24 +70,51 @@ def get_data(website, url, selector):
     )
     html = HTMLParser(resp.text)
     if website == "Asura":
-        manhwa_titles = [
+        titles = [
             element.text().strip()
-            for element in html.css(selector)
+            for element in html.css(title_selector)
             if "rel" not in element.attributes
         ]
+        items = html.css(chapters_selector)
+        chapters = [item.text().strip() for item in items]
+
+        manhwa_data = []
+        for i, title in enumerate(titles):
+            manhwa_data.append({
+                "title": title,
+                "chapters": chapters[i * 3: (i + 1) * 3]
+            })
     elif website == "Luminous":
-        manhwa_titles = [
+        titles = [
             element.attributes.get('title', '').strip()
-            for element in html.css(selector)
+            for element in html.css(title_selector)
         ]
-    else:
-        manhwa_titles = [
+        items = html.css(chapters_selector)
+        chapters = [item.text().strip() for item in items]
+
+        manhwa_data = []
+        for i, title in enumerate(titles):
+            manhwa_data.append({
+                "title": title,
+                "chapters": chapters[i * 3: (i + 1) * 3]
+            })
+    elif website == "Flame":
+        titles = [
             element.text().strip()
-            for element in html.css(selector)
+            for element in html.css(title_selector)
         ]
+        items = html.css(chapters_selector)
+        chapters = [item.text().strip() for item in items]
+
+        manhwa_data = []
+        for i, title in enumerate(titles):
+            manhwa_data.append({
+                "title": title,
+                "chapters": chapters[i * 3: (i + 1) * 3]
+            })
     return {
         "website": website,
-        "manhwa_titles": manhwa_titles[:10]
+        "manhwa_data": manhwa_data[:10]
     }
 
 if __name__ == "__main__":

@@ -65,7 +65,7 @@ def get_data(website, url, title_selector, chapters_selector):
                 "title": title,
                 "chapters": chapters[i * 3: (i + 1) * 3]
             })
-    else:
+    elif website == "Flame":
         titles = [
             element.text().strip()
             for element in html.css(title_selector)
