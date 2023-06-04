@@ -16,7 +16,7 @@ def scrape_data():
         get_data(
             "Flame",
             "https://flamescans.org/",
-            "div.info > a > div.tt",
+            "div.bigor > div.info > a",
             "div.adds > div.epxs",
             "div.chapter-list > a"
         ),
@@ -37,71 +37,43 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
         },
     )
     html = HTMLParser(resp.text)
-    if website == "Asura":
-        titles = [
-            element.attributes.get('title', '').strip()
-            for element in html.css(title_selector)
-        ]
-        items = html.css(chapters_selector)
-        chapters = [item.text().strip() for item in items]
+    manhwa_data = parse_data(resp, website, title_selector, chapters_selector, chapterlinks_selector)
 
-        chapters_links = [
-            element.attributes.get('href', '').strip()
-            for element in html.css(chapters_selector)
-        ]
-
-        manhwa_data = []
-        for i, title in enumerate(titles):
-            manhwa_data.append({
-                "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3],
-                "chapters_links": chapters_links[i * 3: (i + 1) * 3]
-            })
-    elif website == "Luminous":
-        titles = [
-            element.attributes.get('title', '').strip()
-            for element in html.css(title_selector)
-        ]
-        items = html.css(chapters_selector)
-        chapters = [item.text().strip() for item in items]
-
-        chapters_links = [
-            element.attributes.get('href', '').strip()
-            for element in html.css(chapters_selector)
-        ]
-
-        manhwa_data = []
-        for i, title in enumerate(titles):
-            manhwa_data.append({
-                "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3],
-                "chapters_links": chapters_links[i * 3: (i + 1) * 3]
-            })
-    elif website == "Flame":
-        titles = [
-            element.text().strip()
-            for element in html.css(title_selector)
-        ]
-        items = html.css(chapters_selector)
-        chapters = [item.text().strip() for item in items]
-
-        chapters_links = [
-            element.attributes.get('href', '').strip()
-            for element in html.css(chapterlinks_selector)
-            if "title" not in element.attributes
-        ]
-
-        manhwa_data = []
-        for i, title in enumerate(titles):
-            manhwa_data.append({
-                "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3],
-                "chapters_links": chapters_links[i * 3: (i + 1) * 3]
-            })
     return {
         "website": website,
         "manhwa_data": manhwa_data[:10],    
     }
+
+def parse_data(resp, website, title_selector, chapters_selector, chapterslink_selector=None):
+    html = HTMLParser(resp.text)
+    titles = [
+        element.attributes.get('title', '').strip()
+        for element in html.css(title_selector)
+    ]
+    items = html.css(chapters_selector)
+    chapters = [item.text().strip() for item in items]
+
+    if(chapterslink_selector):
+        chapters_links = [
+            element.attributes.get('href', '').strip()
+            for element in html.css(chapterslink_selector)
+            if "title" not in element.attributes
+        ]
+    else:
+        chapters_links = [
+            element.attributes.get('href', '').strip()
+            for element in html.css(chapters_selector)
+        ]
+
+    manhwa_data = []
+    for i, title in enumerate(titles):
+        manhwa_data.append({
+            "title": title,
+            "chapters": chapters[i * 3: (i + 1) * 3],
+            "chapters_links": chapters_links[i * 3: (i + 1) * 3]
+        })
+
+    return manhwa_data
 
 if __name__ == "__main__":
     port = 8000
