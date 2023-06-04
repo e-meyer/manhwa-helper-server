@@ -7,17 +7,18 @@ app = Flask(__name__)
 @app.route('/regular_scraper', methods=['GET'])
 def scrape_data():
     results = [
-        get_data(
-            "Asura",
-            "https://www.asurascans.com/",
-            "a.series",
-            "div.luf > ul > li > a"
-        ),
+        # get_data(
+        #     "Asura",
+        #     "https://www.asurascans.com/",
+        #     "a.series",
+        #     "div.luf > ul > li > a"
+        # ),
         get_data(
             "Flame",
             "https://flamescans.org/",
             "div.info > a > div.tt",
-            "div.adds > div.epxs"
+            "div.adds > div.epxs",
+            "div.chapter-list > a"
         ),
         get_data(
             "Luminous",
@@ -28,7 +29,7 @@ def scrape_data():
     ]
     return jsonify(results)
 
-def get_data(website, url, title_selector, chapters_selector):
+def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector):
     resp = httpx.get(
         url,
         headers={
@@ -59,11 +60,17 @@ def get_data(website, url, title_selector, chapters_selector):
         items = html.css(chapters_selector)
         chapters = [item.text().strip() for item in items]
 
+        chapters_links = [
+            element.attributes.get('href', '').strip()
+            for element in html.css(chapters_selector)
+        ]
+
         manhwa_data = []
         for i, title in enumerate(titles):
             manhwa_data.append({
                 "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3]
+                "chapters": chapters[i * 3: (i + 1) * 3],
+                "chapters_links": chapters_links[i * 3: (i + 1) * 3]
             })
     elif website == "Flame":
         titles = [
@@ -73,11 +80,18 @@ def get_data(website, url, title_selector, chapters_selector):
         items = html.css(chapters_selector)
         chapters = [item.text().strip() for item in items]
 
+        chapters_links = [
+            element.attributes.get('href', '').strip()
+            for element in html.css(chapterlinks_selector)
+            if "title" not in element.attributes
+        ]
+
         manhwa_data = []
         for i, title in enumerate(titles):
             manhwa_data.append({
                 "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3]
+                "chapters": chapters[i * 3: (i + 1) * 3],
+                "chapters_links": chapters_links[i * 3: (i + 1) * 3]
             })
     return {
         "website": website,
