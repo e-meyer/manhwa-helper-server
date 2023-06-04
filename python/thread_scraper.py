@@ -48,14 +48,6 @@ def scrape_data():
     threads.append(t3)
     t3.start()
 
-
-    get_data(
-            "Flame",
-            "https://flamescans.org/",
-            "div.info > a > div.tt",
-            "div.adds > div.epxs"
-        ),
-
     for thread in threads:
         thread.join()
 
