@@ -10,8 +10,8 @@ app = Flask(__name__)
 def scrape_data():
     threads = []
 
-    def scrape_website(website, url, title_selector, chapters_selector):
-        result = get_data(website, url, title_selector, chapters_selector)
+    def scrape_website(website, url, title_selector, chapters_selector, chapterlinks_selector=None):
+        result = get_data(website, url, title_selector, chapters_selector, chapterlinks_selector)
         results.append(result)
 
     results = []
@@ -20,7 +20,7 @@ def scrape_data():
         target=scrape_website,
         args=("Asura",
               "https://www.asurascans.com/",
-              "a.series",
+              "div.luf > a.series",
               "div.luf > ul > li > a"
              ),
         )
@@ -31,8 +31,9 @@ def scrape_data():
         target=scrape_website,
         args=("Flame",
               "https://flamescans.org/",
-              "div.info > a > div.tt",
-              "div.adds > div.epxs"
+              "div.bigor > div.info > a",
+              "div.adds > div.epxs",
+              "div.chapter-list > a"
              ),
         )
     threads.append(t2)
@@ -59,61 +60,51 @@ def scrape_data():
 
     return jsonify(results)
 
-def get_data(website, url, title_selector, chapters_selector):
+def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector=None):
     resp = httpx.get(
         url,
         headers={
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
         },
     )
-    html = HTMLParser(resp.text)
-    if website == "Asura":
-        titles = [
-            element.text().strip()
-            for element in html.css(title_selector)
-            if "rel" not in element.attributes
-        ]
-        items = html.css(chapters_selector)
-        chapters = [item.text().strip() for item in items]
+    
+    manhwa_data = parse_data(resp, website, title_selector, chapters_selector, chapterlinks_selector)
 
-        manhwa_data = []
-        for i, title in enumerate(titles):
-            manhwa_data.append({
-                "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3]
-            })
-    elif website == "Luminous":
-        titles = [
-            element.attributes.get('title', '').strip()
-            for element in html.css(title_selector)
-        ]
-        items = html.css(chapters_selector)
-        chapters = [item.text().strip() for item in items]
-
-        manhwa_data = []
-        for i, title in enumerate(titles):
-            manhwa_data.append({
-                "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3]
-            })
-    elif website == "Flame":
-        titles = [
-            element.text().strip()
-            for element in html.css(title_selector)
-        ]
-        items = html.css(chapters_selector)
-        chapters = [item.text().strip() for item in items]
-
-        manhwa_data = []
-        for i, title in enumerate(titles):
-            manhwa_data.append({
-                "title": title,
-                "chapters": chapters[i * 3: (i + 1) * 3]
-            })
     return {
         "website": website,
         "manhwa_data": manhwa_data[:10]
     }
+
+def parse_data(resp, website, title_selector, chapters_selector, chapterslink_selector=None):
+    html = HTMLParser(resp.text)
+    titles = [
+        element.attributes.get('title', '').strip()
+        for element in html.css(title_selector)
+    ]
+    items = html.css(chapters_selector)
+    chapters = [item.text().strip() for item in items]
+
+    if(chapterslink_selector):
+        chapters_links = [
+            element.attributes.get('href', '').strip()
+            for element in html.css(chapterslink_selector)
+            if "title" not in element.attributes
+        ]
+    else:
+        chapters_links = [
+            element.attributes.get('href', '').strip()
+            for element in html.css(chapters_selector)
+        ]
+
+    manhwa_data = []
+    for i, title in enumerate(titles):
+        manhwa_data.append({
+            "title": title,
+            "chapters": chapters[i * 3: (i + 1) * 3],
+            "chapters_links": chapters_links[i * 3: (i + 1) * 3]
+        })
+
+    return manhwa_data
 
 if __name__ == "__main__":
     app.run()
