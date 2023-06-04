@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import json
 import httpx
 from selectolax.parser import HTMLParser
 import threading
@@ -50,6 +51,11 @@ def scrape_data():
 
     for thread in threads:
         thread.join()
+
+    json_data = json.dumps(results)
+
+    with open('manhwa_data.txt', 'w') as file:
+        file.write(json_data)
 
     return jsonify(results)
 
