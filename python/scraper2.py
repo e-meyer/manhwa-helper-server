@@ -13,11 +13,12 @@ def scrape_data():
             "a.series",
             "div.luf > ul > li > a"
         ),
-        # get_data(
-        #     "Flame",
-        #     "https://flamescans.org/",
-        #     "div.info > a > div.tt",
-        # ),
+        get_data(
+            "Flame",
+            "https://flamescans.org/",
+            "div.info > a > div.tt",
+            "div.adds > div.epxs"
+        ),
         get_data(
             "Luminous",
             "https://luminousscans.com/",
@@ -65,10 +66,19 @@ def get_data(website, url, title_selector, chapters_selector):
                 "chapters": chapters[i * 3: (i + 1) * 3]
             })
     else:
-        manhwa_titles = [
+        titles = [
             element.text().strip()
             for element in html.css(title_selector)
         ]
+        items = html.css(chapters_selector)
+        chapters = [item.text().strip() for item in items]
+
+        manhwa_data = []
+        for i, title in enumerate(titles):
+            manhwa_data.append({
+                "title": title,
+                "chapters": chapters[i * 3: (i + 1) * 3]
+            })
     return {
         "website": website,
         "manhwa_data": manhwa_data[:10],    
