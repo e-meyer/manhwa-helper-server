@@ -27,7 +27,6 @@ def scrape_data():
             write_log(
                 f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Server: Success scraping {website}")
         except Exception as e:
-            # results.append({"error": str(e)})
             write_log(
                 f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Server: Error while scraping {website}")
             write_log(str(e))
