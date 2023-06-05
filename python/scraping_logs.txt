@@ -1,0 +1,5 @@
+[05/06/2023 10:55:36] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[05/06/2023 10:55:36] Server: Success scraping Asura
+[05/06/2023 10:55:37] Server: Success scraping Flame
