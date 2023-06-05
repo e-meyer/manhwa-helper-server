@@ -6,12 +6,6 @@ import httpx
 import threading
 import ssl
 
-
-def write_log(log_message):
-    with open('scraping_logs.txt', 'a') as file:
-        file.write(log_message + '\n')
-
-
 app = Flask(__name__)
 
 
@@ -90,7 +84,7 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
         resp.raise_for_status()
 
         manhwa_data = parse_data(
-            resp, website, title_selector, chapters_selector, chapterlinks_selector)
+            resp, title_selector, chapters_selector, chapterlinks_selector)
 
         return {
             "website": website,
@@ -104,7 +98,7 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
         raise Exception(f"Error: {str(e)}")
 
 
-def parse_data(resp, website, title_selector, chapters_selector, chapterslink_selector=None):
+def parse_data(resp, title_selector, chapters_selector, chapterslink_selector=None):
     html = HTMLParser(resp.text)
     titles = [
         element.attributes.get('title', '').strip()
@@ -134,6 +128,11 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
         })
 
     return manhwa_data
+
+
+def write_log(log_message):
+    with open('scraping_logs.txt', 'a') as file:
+        file.write(log_message + '\n')
 
 
 if __name__ == "__main__":
