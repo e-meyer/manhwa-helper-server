@@ -32,6 +32,7 @@ def scrape_data():
         args=("Asura",
               "https://www.asurascans.com/",
               "div.luf > a.series",
+              "div.luf > ul > li > a",
               "div.luf > ul > li > a"
               ),
     )
@@ -55,6 +56,7 @@ def scrape_data():
         args=("Luminous",
               "https://luminousscans.com/",
               "div.luf > a.series",
+              "div.luf > ul > li > a",
               "div.luf > ul > li > a"
               ),
     )
@@ -107,17 +109,11 @@ def parse_data(resp, title_selector, chapters_selector, chapterslink_selector=No
     items = html.css(chapters_selector)
     chapters = [item.text().strip() for item in items]
 
-    if (chapterslink_selector):
-        chapters_links = [
-            element.attributes.get('href', '').strip()
-            for element in html.css(chapterslink_selector)
-            if "title" not in element.attributes
-        ]
-    else:
-        chapters_links = [
-            element.attributes.get('href', '').strip()
-            for element in html.css(chapters_selector)
-        ]
+    chapters_links = [
+        element.attributes.get('href', '').strip()
+        for element in html.css(chapterslink_selector)
+        if "title" not in element.attributes
+    ]
 
     manhwa_data = []
     for i, title in enumerate(titles):
