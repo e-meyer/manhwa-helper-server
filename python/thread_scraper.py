@@ -13,7 +13,7 @@ app = Flask(__name__)
 def scrape_data():
     threads = []
 
-    def scrape_website(website, url, title_selector, chapters_selector, chapterlinks_selector=None):
+    def scrape_website(website, url, title_selector, chapters_selector, chapterlinks_selector):
         try:
             result = get_data(website, url, title_selector,
                               chapters_selector, chapterlinks_selector)
@@ -74,7 +74,7 @@ def scrape_data():
     return jsonify(results)
 
 
-def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector=None):
+def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector):
     try:
         resp = httpx.get(
             url,
@@ -100,7 +100,7 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
         raise Exception(f"Error: {str(e)}")
 
 
-def parse_data(resp, title_selector, chapters_selector, chapterslink_selector=None):
+def parse_data(resp, title_selector, chapters_selector, chapterslink_selector):
     html = HTMLParser(resp.text)
     titles = [
         element.attributes.get('title', '').strip()
