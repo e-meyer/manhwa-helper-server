@@ -3,3 +3,148 @@ HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
 For more information check: https://httpstatuses.com/403
 [05/06/2023 10:55:36] Server: Success scraping Asura
 [05/06/2023 10:55:37] Server: Success scraping Flame
+[06/06/2023 14:59:16] Server: Success scraping Asura
+[06/06/2023 14:59:16] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 14:59:17] Server: Success scraping Flame
+[06/06/2023 15:29:59] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 15:29:59] Server: Success scraping Asura
+[06/06/2023 15:30:00] Server: Success scraping Flame
+[06/06/2023 15:34:09] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 15:34:09] Server: Success scraping Asura
+[06/06/2023 15:34:10] Server: Success scraping Flame
+[06/06/2023 16:48:41] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 16:48:42] Server: Success scraping Asura
+[06/06/2023 16:48:42] Server: Success scraping Flame
+[06/06/2023 16:56:46] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 16:56:47] Server: Success scraping Asura
+[06/06/2023 16:56:47] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 16:57:48] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 16:57:49] Server: Success scraping Asura
+[06/06/2023 16:57:49] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 16:58:19] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 16:58:19] Server: Success scraping Asura
+[06/06/2023 16:58:20] Server: Success scraping Flame
+[06/06/2023 16:58:54] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 16:58:55] Server: Success scraping Asura
+[06/06/2023 16:58:55] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 16:59:07] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 16:59:07] Server: Success scraping Asura
+[06/06/2023 16:59:08] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 16:59:23] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 16:59:23] Server: Success scraping Asura
+[06/06/2023 16:59:23] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 16:59:47] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 16:59:47] Server: Success scraping Asura
+[06/06/2023 16:59:47] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:01:24] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:01:24] Server: Success scraping Asura
+[06/06/2023 17:01:25] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:01:26] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:01:26] Server: Success scraping Asura
+[06/06/2023 17:01:27] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:02:15] Server: Success scraping Asura
+[06/06/2023 17:02:16] Server: Success scraping Asura
+[06/06/2023 17:02:56] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:02:56] Server: Success scraping Asura
+[06/06/2023 17:02:57] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:04:34] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:04:34] Server: Success scraping Asura
+[06/06/2023 17:04:34] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:07:02] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:07:02] Server: Success scraping Asura
+[06/06/2023 17:07:03] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:10:03] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:10:03] Server: Success scraping Asura
+[06/06/2023 17:10:03] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:10:31] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:10:32] Server: Success scraping Asura
+[06/06/2023 17:10:32] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:11:33] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:11:33] Server: Success scraping Asura
+[06/06/2023 17:11:34] Server: Success scraping Flame
+[06/06/2023 17:11:52] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:11:53] Server: Success scraping Asura
+[06/06/2023 17:11:53] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:13:43] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:13:43] Server: Success scraping Asura
+[06/06/2023 17:13:44] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:14:47] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:14:48] Server: Success scraping Asura
+[06/06/2023 17:14:48] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:15:15] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:15:15] Server: Success scraping Asura
+[06/06/2023 17:15:16] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:15:34] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:15:34] Server: Success scraping Asura
+[06/06/2023 17:15:35] Server: Error while scraping Flame
+Error: list index out of range
+[06/06/2023 17:17:46] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[06/06/2023 17:17:46] Server: Success scraping Asura
+[06/06/2023 17:17:47] Server: Success scraping Flame
