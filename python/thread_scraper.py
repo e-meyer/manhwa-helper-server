@@ -13,10 +13,10 @@ app = Flask(__name__)
 def scrape_data():
     threads = []
 
-    def scrape_website(website, url, title_selector, chapters_selector, chapterlinks_selector):
+    def scrape_website(website, url, title_selector, chapters_selector, chapterlinks_selector, coverlink_selector):
         try:
             result = get_data(website, url, title_selector,
-                              chapters_selector, chapterlinks_selector)
+                              chapters_selector, chapterlinks_selector, coverlink_selector)
             results.append(result)
             write_log(
                 f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Server: Success scraping {website}")
@@ -33,7 +33,8 @@ def scrape_data():
               "https://www.asurascans.com/",
               "div.luf > a.series",
               "div.luf > ul > li > a",
-              "div.luf > ul > li > a"
+              "div.luf > ul > li > a",
+              "div.imgu > a.series > img"
               ),
     )
     threads.append(t1)
@@ -45,7 +46,8 @@ def scrape_data():
               "https://flamescans.org/",
               "div.bigor > div.info > a",
               "div.adds > div.epxs",
-              "div.chapter-list > a"
+              "div.chapter-list > a",
+              "div.latest-updates > div.bs > div.bsx > a > div.limit > img"
               ),
     )
     threads.append(t2)
@@ -57,7 +59,8 @@ def scrape_data():
               "https://luminousscans.com/",
               "div.luf > a.series",
               "div.luf > ul > li > a",
-              "div.luf > ul > li > a"
+              "div.luf > ul > li > a",
+              "div.imgu > a.series > img"
               ),
     )
     threads.append(t3)
@@ -74,7 +77,7 @@ def scrape_data():
     return jsonify(results)
 
 
-def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector):
+def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector, coverlink_selector):
     try:
         resp = httpx.get(
             url,
@@ -86,7 +89,12 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
         resp.raise_for_status()
 
         manhwa_data = parse_data(
-            resp, title_selector, chapters_selector, chapterlinks_selector)
+            resp,
+            title_selector,
+            chapters_selector,
+            chapterlinks_selector,
+            coverlink_selector
+        )
 
         return {
             "website": website,
@@ -100,7 +108,7 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
         raise Exception(f"Error: {str(e)}")
 
 
-def parse_data(resp, title_selector, chapters_selector, chapterslink_selector):
+def parse_data(resp, title_selector, chapters_selector, chapterslink_selector, coverlink_selector):
     html = HTMLParser(resp.text)
     titles = [
         element.attributes.get('title', '').strip()
@@ -115,12 +123,20 @@ def parse_data(resp, title_selector, chapters_selector, chapterslink_selector):
         if "title" not in element.attributes
     ]
 
+    cover_link = [
+        element.attributes.get('src', '').strip()
+        for element in html.css(coverlink_selector)
+    ]
+
     manhwa_data = []
     for i, title in enumerate(titles):
+        if i >= 10:
+            break
         manhwa_data.append({
             "title": title,
+            "cover_link": cover_link[i],
             "chapters": chapters[i * 3: (i + 1) * 3],
-            "chapters_links": chapters_links[i * 3: (i + 1) * 3]
+            "chapters_links": chapters_links[i * 3: (i + 1) * 3],
         })
 
     return manhwa_data
