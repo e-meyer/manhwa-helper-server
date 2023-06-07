@@ -68,4 +68,4 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
 
 
 if __name__ == "__main__":
-    app.run(port=port)
+    app.run()
