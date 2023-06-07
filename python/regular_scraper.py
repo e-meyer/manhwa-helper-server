@@ -4,7 +4,8 @@ from selectolax.parser import HTMLParser
 
 app = Flask(__name__)
 
-@app.route('/regular_scraper', methods=['GET'])
+
+@app.route('/scrape', methods=['GET'])
 def scrape_data():
     results = [
         get_data(
@@ -13,21 +14,9 @@ def scrape_data():
             "div.luf > a.series",
             "div.luf > ul > li > a"
         ),
-        get_data(
-            "Flame",
-            "https://flamescans.org/",
-            "div.bigor > div.info > a",
-            "div.adds > div.epxs",
-            "div.chapter-list > a"
-        ),
-        get_data(
-            "Luminous",
-            "https://luminousscans.com/",
-            "div.luf > a.series",
-            "div.luf > ul > li > a"
-        ),
     ]
     return jsonify(results)
+
 
 def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector=None):
     resp = httpx.get(
@@ -37,12 +26,14 @@ def get_data(website, url, title_selector, chapters_selector, chapterlinks_selec
         },
     )
 
-    manhwa_data = parse_data(resp, website, title_selector, chapters_selector, chapterlinks_selector)
+    manhwa_data = parse_data(
+        resp, website, title_selector, chapters_selector, chapterlinks_selector)
 
     return {
         "website": website,
-        "manhwa_data": manhwa_data[:10],    
+        "manhwa_data": manhwa_data[:10],
     }
+
 
 def parse_data(resp, website, title_selector, chapters_selector, chapterslink_selector=None):
     html = HTMLParser(resp.text)
@@ -53,7 +44,7 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
     items = html.css(chapters_selector)
     chapters = [item.text().strip() for item in items]
 
-    if(chapterslink_selector):
+    if (chapterslink_selector):
         chapters_links = [
             element.attributes.get('href', '').strip()
             for element in html.css(chapterslink_selector)
@@ -75,6 +66,6 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
 
     return manhwa_data
 
+
 if __name__ == "__main__":
-    port = 8000
     app.run(port=port)
