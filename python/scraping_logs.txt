@@ -148,3 +148,259 @@ HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
 For more information check: https://httpstatuses.com/403
 [06/06/2023 17:17:46] Server: Success scraping Asura
 [06/06/2023 17:17:47] Server: Success scraping Flame
+[07/06/2023 14:32:59] Server: Success scraping Asura
+[07/06/2023 14:33:02] Server: Success scraping Asura
+[07/06/2023 14:38:13] Server: Error while scraping Asura
+Error: a bytes-like object is required, not 'str'
+[07/06/2023 15:39:06] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2021/10/DisasterheroCover02-1.png
+[07/06/2023 15:39:06] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/12/infiniteGachaCover01.jpg
+[07/06/2023 15:39:07] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/06/Damn-ReincarnationCover005.png
+[07/06/2023 15:39:07] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2021/01/TheTutorialisTooHardCover02.png
+[07/06/2023 15:39:08] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2023/01/Logging10000YearsCover01.png
+[07/06/2023 15:39:09] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2020/11/TamingMasterCover08.png
+[07/06/2023 15:39:09] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/08/SwordGodCover01.png
+[07/06/2023 15:39:10] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2023/03/DarkMageReturnCover01.png
+[07/06/2023 15:39:10] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/08/existenceCover01.png
+[07/06/2023 15:39:11] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/12/drPlayerCover02.png
+[07/06/2023 15:39:11] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/06/swordfanaticCover01.png
+[07/06/2023 15:39:12] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2021/06/666666.jpg
+[07/06/2023 15:39:12] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2021/02/Player_That_Cant_Level_Up_Title_Card_-_Barak_kopya.jpg
+[07/06/2023 15:39:13] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2020/09/ORV03.png
+[07/06/2023 15:39:13] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/11/magicAcademyMageCover02.png
+[07/06/2023 15:39:14] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/05/martialreturnCover02.png
+[07/06/2023 15:39:14] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/02/the-world-after-the-end-cover.jpg
+[07/06/2023 15:39:15] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2021/11/thesclassesthatiraisedcover.jpg
+[07/06/2023 15:39:16] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2023/04/LegendaryRankerComebackCover02.png
+[07/06/2023 15:39:17] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/08/geniusLineageCover01.png
+[07/06/2023 15:39:17] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2021/07/solomaxlevelnewbie.jpg
+[07/06/2023 15:39:18] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/06/novelextraCover02.png
+[07/06/2023 15:39:18] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2021/11/00-cover.jpg
+[07/06/2023 15:39:19] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2023/03/DemonFactionCover02.png
+[07/06/2023 15:39:20] Server: Error while resizing image https://www.asurascans.com/wp-content/uploads/2022/11/myruinedfamilyCover01.png
+[07/06/2023 16:03:36] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[07/06/2023 16:03:37] Server: Success scraping Asura
+[07/06/2023 16:03:37] Server: Success scraping Flame
+[07/06/2023 16:10:45] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[07/06/2023 16:10:45] Server: Success scraping Asura
+[07/06/2023 16:10:46] Server: Success scraping Flame
+[07/06/2023 16:11:01] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[07/06/2023 16:11:01] Server: Success scraping Asura
+[07/06/2023 16:11:02] Server: Success scraping Flame
+[07/06/2023 16:11:14] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[07/06/2023 16:11:14] Server: Success scraping Asura
+[07/06/2023 16:11:15] Server: Success scraping Flame
+[07/06/2023 16:11:59] Server: Success scraping Asura
+[07/06/2023 16:13:43] Server: Success scraping Asura
+[07/06/2023 16:21:51] Server: Success scraping Asura
+[07/06/2023 16:22:11] Server: Success scraping Asura
+[07/06/2023 16:22:30] Server: Success scraping Asura
+[07/06/2023 16:22:35] Server: Success scraping Asura
+[07/06/2023 16:22:35] Server: Success scraping Flame
+[07/06/2023 16:22:36] Server: Success scraping Asura
+[07/06/2023 16:22:36] Server: Success scraping Flame
+[07/06/2023 16:23:28] Server: Success scraping Asura
+[07/06/2023 16:23:29] Server: Success scraping Flame
+[07/06/2023 16:24:19] Server: Success scraping Asura
+[07/06/2023 16:24:20] Server: Success scraping Flame
+[07/06/2023 16:24:42] Server: Success scraping Asura
+[07/06/2023 16:24:43] Server: Success scraping Flame
+[07/06/2023 16:25:27] Server: Success scraping Asura
+[07/06/2023 16:25:28] Server: Success scraping Flame
+[07/06/2023 16:27:33] Server: Success scraping Asura
+[07/06/2023 16:27:33] Server: Success scraping Flame
+[07/06/2023 16:28:17] Server: Success scraping Asura
+[07/06/2023 16:28:18] Server: Success scraping Flame
+[07/06/2023 16:28:53] Server: Success scraping Asura
+[07/06/2023 16:28:54] Server: Success scraping Flame
+[07/06/2023 16:29:39] Server: Success scraping Asura
+[07/06/2023 16:29:40] Server: Success scraping Flame
+[07/06/2023 16:30:42] Server: Success scraping Asura
+[07/06/2023 16:30:42] Server: Success scraping Flame
+[07/06/2023 16:31:24] Server: Success scraping Asura
+[07/06/2023 16:31:25] Server: Success scraping Flame
+[07/06/2023 16:31:40] Server: Success scraping Asura
+[07/06/2023 16:31:41] Server: Success scraping Flame
+[07/06/2023 16:33:37] Server: Success scraping Asura
+[07/06/2023 16:33:38] Server: Success scraping Flame
+[07/06/2023 16:33:48] Server: Success scraping Asura
+[07/06/2023 16:33:49] Server: Success scraping Flame
+[07/06/2023 16:34:05] Server: Success scraping Asura
+[07/06/2023 16:34:05] Server: Success scraping Flame
+[07/06/2023 16:34:52] Server: Success scraping Asura
+[07/06/2023 16:34:53] Server: Success scraping Flame
+[07/06/2023 16:35:28] Server: Success scraping Asura
+[07/06/2023 16:35:29] Server: Success scraping Flame
+[07/06/2023 16:35:42] Server: Success scraping Asura
+[07/06/2023 16:35:42] Server: Success scraping Flame
+[07/06/2023 16:35:54] Server: Success scraping Asura
+[07/06/2023 16:35:55] Server: Success scraping Flame
+[07/06/2023 16:36:19] Server: Success scraping Asura
+[07/06/2023 16:36:19] Server: Success scraping Flame
+[07/06/2023 16:37:29] Server: Success scraping Asura
+[07/06/2023 16:37:30] Server: Success scraping Flame
+[07/06/2023 16:38:32] Server: Success scraping Asura
+[07/06/2023 16:38:34] Server: Success scraping Flame
+[07/06/2023 16:38:51] Server: Success scraping Asura
+[07/06/2023 16:38:52] Server: Success scraping Flame
+[07/06/2023 16:39:07] Server: Success scraping Asura
+[07/06/2023 16:39:07] Server: Success scraping Flame
+[07/06/2023 16:39:12] Server: Success scraping Asura
+[07/06/2023 16:39:13] Server: Success scraping Flame
+[07/06/2023 16:39:22] Server: Success scraping Asura
+[07/06/2023 16:39:23] Server: Success scraping Flame
+[07/06/2023 16:40:23] Server: Success scraping Asura
+[07/06/2023 16:40:24] Server: Success scraping Flame
+[07/06/2023 16:41:55] Server: Success scraping Asura
+[07/06/2023 16:41:56] Server: Success scraping Flame
+[07/06/2023 16:42:16] Server: Success scraping Asura
+[07/06/2023 16:42:16] Server: Success scraping Flame
+[07/06/2023 16:43:02] Server: Success scraping Asura
+[07/06/2023 16:43:03] Server: Success scraping Flame
+[07/06/2023 16:43:54] Server: Success scraping Asura
+[07/06/2023 16:43:54] Server: Success scraping Flame
+[07/06/2023 16:44:18] Server: Success scraping Asura
+[07/06/2023 16:44:19] Server: Success scraping Flame
+[07/06/2023 16:45:29] Server: Success scraping Asura
+[07/06/2023 16:45:30] Server: Success scraping Flame
+[07/06/2023 16:45:53] Server: Success scraping Asura
+[07/06/2023 16:45:53] Server: Success scraping Flame
+[07/06/2023 16:46:55] Server: Success scraping Asura
+[07/06/2023 16:46:56] Server: Success scraping Flame
+[07/06/2023 16:47:30] Server: Success scraping Asura
+[07/06/2023 16:47:31] Server: Success scraping Flame
+[07/06/2023 16:49:43] Server: Success scraping Asura
+[07/06/2023 16:49:44] Server: Success scraping Flame
+[07/06/2023 16:49:57] Server: Success scraping Asura
+[07/06/2023 16:49:58] Server: Success scraping Flame
+[07/06/2023 16:50:12] Server: Success scraping Asura
+[07/06/2023 16:50:12] Server: Success scraping Flame
+[07/06/2023 16:50:25] Server: Success scraping Asura
+[07/06/2023 16:50:25] Server: Success scraping Flame
+[07/06/2023 16:50:35] Server: Success scraping Asura
+[07/06/2023 16:50:36] Server: Success scraping Flame
+[07/06/2023 16:51:16] Server: Success scraping Asura
+[07/06/2023 16:51:17] Server: Success scraping Flame
+[07/06/2023 16:51:36] Server: Success scraping Asura
+[07/06/2023 16:51:36] Server: Success scraping Asura
+[07/06/2023 16:51:37] Server: Success scraping Flame
+[07/06/2023 16:51:37] Server: Success scraping Flame
+[07/06/2023 16:52:34] Server: Success scraping Asura
+[07/06/2023 16:52:35] Server: Success scraping Flame
+[07/06/2023 16:52:42] Server: Success scraping Asura
+[07/06/2023 16:52:42] Server: Success scraping Flame
+[07/06/2023 16:52:47] Server: Success scraping Asura
+[07/06/2023 16:52:48] Server: Success scraping Flame
+[07/06/2023 16:53:18] Server: Success scraping Asura
+[07/06/2023 16:53:18] Server: Success scraping Flame
+[07/06/2023 16:53:34] Server: Success scraping Asura
+[07/06/2023 16:53:34] Server: Success scraping Flame
+[07/06/2023 16:53:55] Server: Success scraping Asura
+[07/06/2023 16:53:56] Server: Success scraping Flame
+[07/06/2023 16:54:21] Server: Success scraping Asura
+[07/06/2023 16:54:22] Server: Success scraping Flame
+[07/06/2023 16:55:52] Server: Success scraping Asura
+[07/06/2023 16:55:52] Server: Success scraping Asura
+[07/06/2023 16:55:52] Server: Success scraping Flame
+[07/06/2023 16:55:52] Server: Success scraping Flame
+[07/06/2023 16:56:17] Server: Success scraping Asura
+[07/06/2023 16:56:17] Server: Success scraping Flame
+[07/06/2023 16:56:20] Server: Success scraping Asura
+[07/06/2023 16:56:21] Server: Success scraping Flame
+[07/06/2023 16:56:39] Server: Success scraping Asura
+[07/06/2023 16:56:39] Server: Success scraping Flame
+[07/06/2023 16:57:24] Server: Success scraping Asura
+[07/06/2023 16:57:25] Server: Success scraping Flame
+[07/06/2023 16:58:42] Server: Success scraping Asura
+[07/06/2023 16:58:43] Server: Success scraping Flame
+[07/06/2023 16:59:05] Server: Success scraping Asura
+[07/06/2023 16:59:05] Server: Success scraping Flame
+[07/06/2023 16:59:38] Server: Success scraping Asura
+[07/06/2023 16:59:38] Server: Success scraping Flame
+[07/06/2023 17:00:03] Server: Success scraping Asura
+[07/06/2023 17:00:03] Server: Success scraping Flame
+[07/06/2023 17:00:38] Server: Success scraping Asura
+[07/06/2023 17:00:39] Server: Success scraping Flame
+[07/06/2023 17:01:09] Server: Success scraping Asura
+[07/06/2023 17:01:09] Server: Success scraping Flame
+[07/06/2023 17:01:25] Server: Success scraping Asura
+[07/06/2023 17:01:25] Server: Success scraping Flame
+[07/06/2023 17:01:38] Server: Success scraping Asura
+[07/06/2023 17:01:39] Server: Success scraping Flame
+[07/06/2023 17:02:01] Server: Success scraping Asura
+[07/06/2023 17:02:01] Server: Success scraping Flame
+[07/06/2023 17:02:10] Server: Success scraping Asura
+[07/06/2023 17:02:10] Server: Success scraping Flame
+[07/06/2023 17:02:15] Server: Success scraping Asura
+[07/06/2023 17:02:16] Server: Success scraping Flame
+[07/06/2023 17:02:44] Server: Success scraping Asura
+[07/06/2023 17:02:45] Server: Success scraping Flame
+[07/06/2023 17:05:03] Server: Success scraping Asura
+[07/06/2023 17:05:03] Server: Success scraping Flame
+[07/06/2023 17:05:47] Server: Success scraping Asura
+[07/06/2023 17:05:48] Server: Success scraping Flame
+[07/06/2023 17:07:59] Server: Success scraping Asura
+[07/06/2023 17:07:59] Server: Success scraping Flame
+[07/06/2023 17:08:25] Server: Success scraping Asura
+[07/06/2023 17:08:26] Server: Success scraping Flame
+[07/06/2023 17:11:53] Server: Success scraping Asura
+[07/06/2023 17:11:54] Server: Success scraping Flame
+[07/06/2023 17:13:06] Server: Success scraping Asura
+[07/06/2023 17:13:06] Server: Success scraping Flame
+[07/06/2023 17:13:22] Server: Success scraping Asura
+[07/06/2023 17:13:22] Server: Success scraping Flame
+[07/06/2023 17:13:37] Server: Success scraping Asura
+[07/06/2023 17:13:37] Server: Success scraping Flame
+[07/06/2023 17:14:25] Server: Success scraping Asura
+[07/06/2023 17:14:25] Server: Success scraping Flame
+[07/06/2023 17:14:56] Server: Success scraping Asura
+[07/06/2023 17:14:56] Server: Success scraping Flame
+[07/06/2023 17:15:24] Server: Success scraping Asura
+[07/06/2023 17:15:24] Server: Success scraping Flame
+[07/06/2023 17:15:32] Server: Success scraping Asura
+[07/06/2023 17:15:33] Server: Success scraping Flame
+[07/06/2023 17:16:56] Server: Success scraping Asura
+[07/06/2023 17:16:58] Server: Success scraping Flame
+[07/06/2023 17:17:17] Server: Success scraping Asura
+[07/06/2023 17:17:18] Server: Success scraping Flame
+[07/06/2023 17:17:38] Server: Success scraping Asura
+[07/06/2023 17:17:38] Server: Success scraping Flame
+[07/06/2023 17:17:48] Server: Success scraping Asura
+[07/06/2023 17:17:48] Server: Success scraping Flame
+[07/06/2023 17:18:00] Server: Success scraping Asura
+[07/06/2023 17:18:01] Server: Success scraping Flame
+[07/06/2023 17:18:50] Server: Success scraping Asura
+[07/06/2023 17:18:51] Server: Success scraping Flame
+[07/06/2023 17:19:11] Server: Success scraping Asura
+[07/06/2023 17:19:12] Server: Success scraping Flame
+[07/06/2023 17:20:19] Server: Success scraping Asura
+[07/06/2023 17:20:20] Server: Success scraping Flame
+[07/06/2023 17:20:34] Server: Success scraping Asura
+[07/06/2023 17:20:35] Server: Success scraping Flame
+[07/06/2023 17:20:48] Server: Success scraping Asura
+[07/06/2023 17:20:48] Server: Success scraping Flame
+[07/06/2023 17:21:06] Server: Success scraping Asura
+[07/06/2023 17:21:07] Server: Success scraping Flame
+[07/06/2023 17:22:22] Server: Success scraping Asura
+[07/06/2023 17:22:23] Server: Success scraping Flame
+[07/06/2023 17:22:45] Server: Success scraping Asura
+[07/06/2023 17:22:45] Server: Success scraping Flame
+[07/06/2023 17:23:40] Server: Success scraping Asura
+[07/06/2023 17:23:40] Server: Success scraping Flame
+[07/06/2023 17:24:53] Server: Success scraping Asura
+[07/06/2023 17:24:53] Server: Success scraping Flame
+[07/06/2023 17:25:05] Server: Success scraping Asura
+[07/06/2023 17:25:06] Server: Success scraping Flame
+[07/06/2023 17:25:23] Server: Success scraping Asura
+[07/06/2023 17:25:23] Server: Success scraping Flame
+[07/06/2023 17:25:52] Server: Success scraping Asura
+[07/06/2023 17:25:52] Server: Success scraping Flame
+[07/06/2023 17:26:05] Server: Success scraping Asura
+[07/06/2023 17:26:06] Server: Success scraping Flame
