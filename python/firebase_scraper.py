@@ -4,7 +4,6 @@ from firebase_admin import storage
 from flask import Flask, jsonify
 from selectolax.parser import HTMLParser
 from datetime import datetime
-from urllib.parse import urlparse
 import json
 import httpx
 import threading
@@ -57,10 +56,57 @@ def scrape_data():
     threads.append(t1)
     t1.start()
 
+    t2 = threading.Thread(
+        target=scrape_website,
+        args=("Flame",
+              "https://flamescans.org/",
+              "div.bigor > div.info > a",
+              "div.adds > div.epxs",
+              "div.chapter-list > a",
+              "div.latest-updates > div.bs > div.bsx > a > div.limit > img"
+              ),
+    )
+    threads.append(t2)
+    t2.start()
+
     for thread in threads:
         thread.join()
 
     json_data = json.dumps(results)
+    json_object = json.loads(json_data)
+
+    with open('manhwa_data.txt', 'r') as file:
+        existing_data = json.load(file)
+
+    websites = set()
+    for item in existing_data:
+        website = item['website']
+        websites.add(website)
+
+    existing_titles = {}
+    for item in existing_data:
+        website = item['website']
+        existing_titles[website] = set()
+        for manhwa in item['manhwa_data']:
+            existing_titles[website].add(manhwa['title'])
+
+    new_titles = {}
+    for item in json_object:
+        website = item['website']
+        new_titles[website] = set()
+        for manhwa in item['manhwa_data']:
+            new_titles[website].add(manhwa['title'])
+
+    print(existing_titles)
+    print(new_titles)
+
+    new_and_unique_titles = []
+    for website in existing_titles.keys():
+        new_titles_for_website = list(new_titles.get(
+            website, set()) - existing_titles[website])
+        new_and_unique_titles.extend(new_titles_for_website)
+
+    print(new_and_unique_titles)
 
     with open('manhwa_data.txt', 'w') as file:
         file.write(json_data)
@@ -120,46 +166,42 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
         for element in html.css(coverlink_selector)
     ]
 
-    resized_images = []
+    # resized_images = []
 
-    for i, link in enumerate(cover_link):
-        try:
-            max_width = 300
-            response = httpx.get(link)
-            image = Image.open(BytesIO(response.content))
+    # for i, link in enumerate(cover_link):
+    #     try:
+    #         max_width = 300
+    #         response = httpx.get(link)
+    #         image = Image.open(BytesIO(response.content))
 
-            width, height = image.size
-            ratio = max_width / width
-            new_size = (max_width, int(height * ratio))
-            resized_image = image.resize(new_size)
+    #         width, height = image.size
+    #         ratio = max_width / width
+    #         new_size = (max_width, int(height * ratio))
+    #         resized_image = image.resize(new_size)
 
-            _, ext = os.path.splitext(link)
+    #         _, ext = os.path.splitext(link)
 
-            # Salvar no firebase storage
-            bucket = storage.bucket()
-            blob = bucket.blob(f'resized_image_{i+1}{ext}')
-            blob.upload_from_string(resized_image.tobytes(
-            ), content_type=f'image/{ext[1:]}')
+    #         # Salvar no firebase storage
+    #         bucket = storage.bucket()
+    #         blob = bucket.blob(f'resized_image_{i+1}{ext}')
+    #         blob.upload_from_string(resized_image.tobytes(
+    #         ), content_type=f'image/{ext[1:]}')
 
-            # Busca link onde foi salvo
-            download_url = blob.generate_signed_url(
-                expiration=300, method='GET')
+    #         # Busca link onde foi salvo
+    #         download_url = blob.generate_signed_url(
+    #             expiration=300, method='GET')
 
-            # resized_images.append(link)
-            resized_images.append(download_url)
+    #         # resized_images.append(link)
+    #         resized_images.append(download_url)
 
-            print(f"Image {i+1} resized and saved as {ext}")
-        except Exception as e:
-            resized_images.append(link)
-            write_log(
-                f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Server: Error while resizing image {link}")
-            print(f"{str(e)}")
+    #         print(f"Image {i+1} resized and saved as {ext}")
+    #     except Exception as e:
+    #         resized_images.append(link)
+    #         write_log(
+    #             f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Server: Error while resizing image {link}")
+    #         print(f"{str(e)}")
 
-        # image_path = download_image(link)
-        # resized_image_path = resize_image(image_path)
-        # resized_images.append(resized_image_path)
-
-    print(resized_images)
+    # print(resized_images)
 
     manhwa_data = []
     for i, title in enumerate(titles):
@@ -173,36 +215,6 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
         })
 
     return manhwa_data
-
-
-def download_image(url):
-    response = httpx.get(url)
-    response.raise_for_status()
-
-    filename = os.path.basename(urlparse(url).path)
-
-    image_path = os.path.join("images/", filename)
-    with open(image_path, "wb") as file:
-        file.write(response.content)
-
-    return image_path
-
-
-def resize_image(image_path):
-    image = Image.open(image_path)
-
-    max_width = 300
-    width, height = image.size
-    ratio = max_width / width
-    new_width = max_width
-    new_height = int(height * ratio)
-
-    resized_image = image.resize((new_width, new_height))
-
-    resized_image_path = os.path.splitext(image_path)[0] + "_resized.png"
-    resized_image.save(resized_image_path, format="PNG")
-
-    return resized_image_path
 
 
 def write_log(log_message):
