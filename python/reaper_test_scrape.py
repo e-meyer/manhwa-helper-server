@@ -2,33 +2,44 @@ import random
 import requests
 import json
 from bs4 import BeautifulSoup
+import random
+import string
 
 def search_manga_request(page, query):
-    base_url = "https://reaperscans.com/"
+    base_url = "https://reaperscans.com"
     route_name = 'frontend.dtddzhx-ghvjlgrpt'
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
     }
     
     response = requests.get(base_url, headers=headers)
     soup = BeautifulSoup(response.content, 'html.parser')
-
+    
     csrf_token = soup.select_one("meta[name=\"csrf-token\"]")['content']
+    print(csrf_token)
 
-    livewire_data = soup.find(attrs={'wire:id': True})
+    livewire_data = soup.find(attrs={'wire:initial-data': True})
     wire_id_value = livewire_data['wire:id']
-    print(wire_id_value)
+    wire_sv_memo = livewire_data['wire:initial-data']
+    json_data = json.loads(wire_sv_memo)
+    # print(json_data['fingerprint'])
+    # print(json_data['serverMemo'])
 
-    #  Javascript: (Math.random() + 1).toString(36).substring(8)
-    generate_id = lambda: "1." + str(random.randint(0, 36**5))[1:]  # Not exactly the same, but results in a 3-5 character string
+    def generate_random_string():
+        characters = string.digits + string.ascii_lowercase
+        random_length = random.randint(4, 5)
+        random_string = ''.join(random.choices(characters, k=random_length))
+        return random_string
+    print(generate_random_string())
+    # #  Javascript: (Math.random() + 1).toString(36).substring(8)
     payload = {
-        "fingerprint": wire_id_value,
-        "serverMemo": None,
+        "fingerprint": json_data['fingerprint'],
+        "serverMemo": json_data['serverMemo'],
         "updates": [
             {
                 "type": "syncInput",
                 "payload": {
-                    "id": generate_id(),
+                    "id": generate_random_string(),
                     "name": "query",
                     "value": query
                 }
@@ -38,12 +49,35 @@ def search_manga_request(page, query):
     payload = json.dumps(payload)
 
     headers = {
-        "x-csrf-token": csrf_token,
-        "x-livewire": "true"
+        "content-type": "application/json",
+        "Accept": "text/html, application/xhtml+xml",
+        "Origin": "https://reaperscans.com",
+        "Refeer": "https://reaperscans.com",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
+        "X-Csrf-Token": csrf_token,
+        "X-Livewire": "true",
     }
 
     url = f"{base_url}/livewire/message/{route_name}"
-    return requests.post(url, headers=headers, data=payload)
+
+    print(url)
+    print('headers')
+    print(headers)
+    print('payload')
+    print(payload)
+    print('fingerprint')
+    print(json_data['fingerprint'])
+    print('serverMemo')
+    print(json_data['serverMemo'])
+
+    req = requests.post(url='https://reaperscans.com/livewire/message/frontend.dtddzhx-ghvjlgrpt', headers=headers, data=payload)
+    print(response.status_code)
+    return req.content
+
+print(search_manga_request(1, 'Estio'))
 
 
-print(search_manga_request(1, '4000'))
+
+# json_str = '{"fingerprint":{"id":"9FsA8fzaaMH3zxn9Cobo","name":"frontend.dtddzhx-ghvjlgrpt","locale":"en","path":"\/","method":"GET","v":"acj"},"effects":{"listeners":[]},"serverMemo":{"children":[],"errors":[],"htmlHash":"45b5366f","data":{"query":"","comics":[],"novels":[]},"dataMeta":[],"checksum":"c2e880587be2b53795003dd12315b17fc9eb7e8bfff561c83b2b89511ee4d444"}}'
+    # print(json_str)
