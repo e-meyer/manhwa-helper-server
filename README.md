@@ -1,8 +1,8 @@
 ### Manhwa Alert Server
 
-This is the server for the manhwa-alert-app project.
+This is going **to** be the scraper server for the [manhwa-alert-app](https://github.com/e-meyer/manhwa-helper-app) project.
 It's currently just a basic scrape testing.
 
+I've tried Node.js for scraping but noticed that Python with Flask performs somewhat better.
 
-I've tried Node.js for the scraping part but noticed that Python with Flask performs somewhat better.
-And also, I thought that threading might be a good idea because I don't want to be tied to only one task at a time but rather be able to make multiple requests for scraping simultaneously.
+Also, I've implemented some workarounds for specific scanlators because scraping certain functionalities can be tricky. For example, when there's no actual search page available, analyzing the network traffic can come in handy.

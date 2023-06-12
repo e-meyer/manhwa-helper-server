@@ -5,16 +5,17 @@ from bs4 import BeautifulSoup
 import random
 import string
 
+
 def search_manga_request(page, query):
     base_url = "https://reaperscans.com"
     route_name = 'frontend.dtddzhx-ghvjlgrpt'
     headers = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
     }
-    
+
     response = requests.get(base_url, headers=headers)
     soup = BeautifulSoup(response.content, 'html.parser')
-    
+
     csrf_token = soup.select_one("meta[name=\"csrf-token\"]")['content']
     print(csrf_token)
 
@@ -71,13 +72,14 @@ def search_manga_request(page, query):
     print('serverMemo')
     print(json_data['serverMemo'])
 
-    req = requests.post(url='https://reaperscans.com/livewire/message/frontend.dtddzhx-ghvjlgrpt', headers=headers, data=payload)
+    req = requests.post(
+        url='https://reaperscans.com/livewire/message/frontend.dtddzhx-ghvjlgrpt', headers=headers, data=payload)
     print(response.status_code)
     return req.content
+
 
 print(search_manga_request(1, 'Estio'))
 
 
-
 # json_str = '{"fingerprint":{"id":"9FsA8fzaaMH3zxn9Cobo","name":"frontend.dtddzhx-ghvjlgrpt","locale":"en","path":"\/","method":"GET","v":"acj"},"effects":{"listeners":[]},"serverMemo":{"children":[],"errors":[],"htmlHash":"45b5366f","data":{"query":"","comics":[],"novels":[]},"dataMeta":[],"checksum":"c2e880587be2b53795003dd12315b17fc9eb7e8bfff561c83b2b89511ee4d444"}}'
-    # print(json_str)
+# print(json_str)
