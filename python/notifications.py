@@ -26,31 +26,26 @@ def send_notification_token():
     except Exception as error:
         print('Error sending notification:', error)
 
+arr = [
+    "f-class_destiny_hunter",
+    "surviving_the_game_as_a_barbarian"
+]
 
 def send_notification_topic():
-    message = messaging.Message(
+    for item in arr:
+        message = messaging.Message(
         notification=messaging.Notification(
             title='Sample Notification',
             body='This is a sample notification for subscribed users',
         ),
-        topic='banana'
-    )
+        topic=item
+        )
 
-    message2 = messaging.Message(
-        notification=messaging.Notification(
-            title='Sample Notification',
-            body='This is a sample notification for subscribed users',
-        ),
-        topic='french_fries'
-    )
-
-    try:
-        response = messaging.send(message)
-        response2 = messaging.send(message2)
-        print('Notification sent successfully to banana:', response)
-        print('Notification sent successfully to french_fries:', response2)
-    except Exception as error:
-        print('Error sending notification:', error)
+        try:
+            response = messaging.send(message)
+            print('Notification sent successfully to banana:', response)
+        except Exception as error:
+            print('Error sending notification:', error)
 
 
 send_notification_topic()
