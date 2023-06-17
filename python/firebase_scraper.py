@@ -12,6 +12,8 @@ import os
 from PIL import Image
 from io import BytesIO
 
+from notifications import send_notification_topic
+
 service_account_key = 'service-account-credentials.json'
 
 cred = credentials.Certificate(service_account_key)
@@ -108,6 +110,11 @@ def scrape_data():
 
     print(new_and_unique_titles)
 
+    for manhwa in new_and_unique_titles:
+        clean_title = "_".join(manhwa.strip().lower().split(" "))
+        print(clean_title)
+        send_notification_topic(clean_title)
+
     with open('manhwa_data.txt', 'w') as file:
         file.write(json_data)
 
@@ -152,6 +159,7 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
         element.attributes.get('title', '').strip()
         for element in html.css(title_selector)
     ]
+
     items = html.css(chapters_selector)
     chapters = [item.text().strip() for item in items]
 
@@ -203,8 +211,13 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
 
     # print(resized_images)
 
+
     manhwa_data = []
     for i, title in enumerate(titles):
+        # if title == 'The Player Hides His Past':
+        #     title = 'wrong_name_wrong_name_wrong_name_wrong_name'
+        # if title == 'Nine Heavens Swordmaster':
+        #     title = 'wrong_name_wrong_name_wrong_name_wrong_name'
         if i >= 10:
             break
         manhwa_data.append({
