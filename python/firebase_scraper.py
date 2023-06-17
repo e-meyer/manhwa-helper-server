@@ -1,3 +1,4 @@
+import time
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
@@ -24,10 +25,10 @@ firebase_admin.initialize_app(cred, {
 project_id = firebase_admin.get_app().project_id
 print(f"Connected to Firebase project: {project_id}")
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 
-@app.route('/thread_scraper', methods=['GET'])
+# @app.route('/thread_scraper', methods=['GET'])
 def scrape_data():
     threads = []
 
@@ -71,6 +72,19 @@ def scrape_data():
     threads.append(t2)
     t2.start()
 
+    t3 = threading.Thread(
+        target=scrape_website,
+        args=("Luminous",
+              "https://luminousscans.com/",
+              "div.bigor > div.info > a",
+              "div.adds > div.epxs",
+              "div.chapter-list > a",
+              "div.latest-updates > div.bs > div.bsx > a > div.limit > img"
+              ),
+    )
+    threads.append(t3)
+    t3.start()
+
     for thread in threads:
         thread.join()
 
@@ -99,8 +113,8 @@ def scrape_data():
         for manhwa in item['manhwa_data']:
             new_titles[website].add(manhwa['title'])
 
-    print(existing_titles)
-    print(new_titles)
+    # print(existing_titles)
+    # print(new_titles)
 
     new_and_unique_titles = []
     for website in existing_titles.keys():
@@ -111,14 +125,14 @@ def scrape_data():
     print(new_and_unique_titles)
 
     for manhwa in new_and_unique_titles:
-        clean_title = "_".join(manhwa.strip().lower().split(" "))
+        clean_title = "_".join(manhwa.strip().lower().replace('\'', '-').split(" "))
         print(clean_title)
         send_notification_topic(clean_title)
 
     with open('manhwa_data.txt', 'w') as file:
         file.write(json_data)
 
-    return jsonify(results)
+    return json.dumps(results)
 
 
 def get_data(website, url, title_selector, chapters_selector, chapterlinks_selector, coverlink_selector):
@@ -236,4 +250,13 @@ def write_log(log_message):
 
 
 if __name__ == "__main__":
-    app.run()
+    while True:
+        try:
+            scrape_data()
+            time.sleep(300)  # Sleep for 300 seconds (5 minutes)
+        except KeyboardInterrupt:
+            print("Stopping the scraper")
+            break
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            time.sleep(300)  # Sleep for 5 minutes before trying again
