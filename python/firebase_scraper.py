@@ -76,10 +76,10 @@ def scrape_data():
         target=scrape_website,
         args=("Luminous",
               "https://luminousscans.com/",
-              "div.bigor > div.info > a",
-              "div.adds > div.epxs",
-              "div.chapter-list > a",
-              "div.latest-updates > div.bs > div.bsx > a > div.limit > img"
+              "div.luf > a.series",
+              "div.luf > ul > li > a",
+              "div.luf > ul > li > a",
+              "div.imgu > a.series > img"
               ),
     )
     threads.append(t3)
@@ -125,7 +125,7 @@ def scrape_data():
     print(new_and_unique_titles)
 
     for manhwa in new_and_unique_titles:
-        clean_title = "_".join(manhwa.strip().lower().replace('\'', '').split(" "))
+        clean_title = "_".join(manhwa.strip().lower().replace('`', '').replace('’', '').replace(',', '').replace('\'', '').split(" "))
         print(clean_title)
         send_notification_topic(clean_title)
 
