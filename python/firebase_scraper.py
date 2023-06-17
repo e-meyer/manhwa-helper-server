@@ -125,7 +125,7 @@ def scrape_data():
     print(new_and_unique_titles)
 
     for manhwa in new_and_unique_titles:
-        clean_title = "_".join(manhwa.strip().lower().replace('\'', '-').split(" "))
+        clean_title = "_".join(manhwa.strip().lower().replace('\'', '').split(" "))
         print(clean_title)
         send_notification_topic(clean_title)
 
