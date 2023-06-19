@@ -125,7 +125,8 @@ def scrape_data():
     print(new_and_unique_titles)
 
     for manhwa in new_and_unique_titles:
-        clean_title = "_".join(manhwa.strip().lower().replace('`', '').replace('’', '').replace(',', '').replace('\'', '').split(" "))
+        clean_title = "_".join(manhwa.strip().lower().replace('`', '').replace(
+            '’', '').replace(',', '').replace('\'', '').split(" "))
         print(clean_title)
         send_notification_topic(clean_title)
 
@@ -224,7 +225,6 @@ def parse_data(resp, website, title_selector, chapters_selector, chapterslink_se
     #         print(f"{str(e)}")
 
     # print(resized_images)
-
 
     manhwa_data = []
     for i, title in enumerate(titles):
