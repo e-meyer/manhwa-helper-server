@@ -34,7 +34,8 @@ def send_notification_topic(item, data):
 
 
 def save_notification_to_firestore(data, item):
-    doc_ref = db.collection('notifications').document(item).collection(item)
+    doc_ref = db.collection('notifications').document(
+        item).collection('notifications')
     doc_ref.add(data)
 
 
