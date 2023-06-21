@@ -29,8 +29,12 @@ def send_notification_topic(item, data):
         response = messaging.send(message)
         print(f'Sending notification to {item}:', response)
         save_notification_to_firestore(data, item)
+        write_log(
+            f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Notification: Success sending {item}")
     except Exception as error:
         print('Error sending notification:', error)
+        write_log(
+            f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Notification: Error sending {item}: {error}")
 
 
 def save_notification_to_firestore(data, item):
@@ -39,16 +43,13 @@ def save_notification_to_firestore(data, item):
     doc_ref.add(data)
 
 
-time = datetime.now() - timedelta(days=5)
-
-
 def notify_player_who_returned_10000_years_later():
     send_notification_topic(item='player_who_returned_10000_years_later',
                             data={'manhwa_title': 'Player Who Returned 10,000 Years Later',
                                   'chapter_number': 'Chapter 64',
                                   'chapter_url': 'https://www.asurascans.com/player-who-returned-10000-years-later-chapter-63/',
                                   'cover_url': 'https://www.asurascans.com/wp-content/uploads/2022/07/Player10000yearsCover02_copy.png',
-                                  'notification_timestamp':  time.isoformat()
+                                  'notification_timestamp':  datetime.now().isoformat()
                                   })
 
 
@@ -118,8 +119,13 @@ def notify_chronicles_of_the_demon_faction():
                                   'chapter_number': 'Chapter 21',
                                   'chapter_url': 'https://www.asurascans.com/chronicles-of-the-demon-faction-chapter-21/',
                                   'cover_url': 'https://www.asurascans.com/wp-content/uploads/2023/03/DemonFactionCover02.png',
-                                  'notification_timestamp': (datetime.now() - timedelta(days=4)).isoformat()
+                                  'notification_timestamp': datetime.now().isoformat()
                                   })
+
+
+def write_log(log_message):
+    with open('scraping_logs.txt', 'a') as file:
+        file.write(log_message + '\n')
 
 
 # Check the command-line arguments and call the appropriate function
