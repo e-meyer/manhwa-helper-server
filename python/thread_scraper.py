@@ -45,8 +45,6 @@ def scrape_data():
         args=("Flame",
               "https://flamescans.org/",
               "div.bigor > div.info > a",
-              "div.adds > div.epxs",
-              "div.chapter-list > a",
               "div.latest-updates > div.bs > div.bsx > a > div.limit > img"
               ),
     )
