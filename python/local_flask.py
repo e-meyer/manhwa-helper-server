@@ -90,26 +90,28 @@ def reaper():
     query = request.args.get('query')
     url="https://reaperscans.com/"
 
-    response = request_website_data(url)
+    response = request_website_data(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
+        },
+        )
 
-    manhwa_data = reaper_search_scraper(response)
-    
-    
+    manhwa_data = reaper_search_scraper(response, query)
 
     return {
         "website": "Reaper",
         "manhwa_data": manhwa_data,
     }
 
-def request_website_data(url, headers, data):
+def request_website_data(url, headers):
     try:
         response = requests.get(
             url,
             headers=headers,
-            data=data,
         )
         response.raise_for_status()
-
+        
         return response
     except requests.exceptions.Timeout as e:
         raise Exception(f"Request timed out: {str(e)}")

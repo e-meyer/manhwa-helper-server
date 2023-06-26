@@ -5,8 +5,8 @@ import json
 import re
 import requests
 
-def reaper_search_scraper(result):
-    soup = BeautifulSoup(result, 'html.parser')
+def reaper_search_scraper(result, query):
+    soup = BeautifulSoup(result.text, 'html.parser')
 
     csrf_token = soup.select_one("meta[name=\"csrf-token\"]")['content']
 
