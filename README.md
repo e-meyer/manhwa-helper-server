@@ -1,8 +1,12 @@
 ### Manhwa Alert Server
 
-This is going **to** be the scraper server for the [manhwa-alert-app](https://github.com/e-meyer/manhwa-helper-app) project.
-It's currently just a basic scrape testing.
+- Flask API to get data from Scanlators
+- Scraping server for the [manhwa-alert-app](https://github.com/e-meyer/manhwa-helper-app) project.
 
-I've tried Node.js for scraping but noticed that Python with Flask performs somewhat better.
+### Additional Info
 
-Also, I've implemented some workarounds for specific scanlators because scraping certain functionalities can be tricky. For example, when there's no actual search page available, analyzing the network traffic can come in handy.
+I've tried Node.js for scraping but noticed that Python performs considerably better.
+
+Because Dart can't handle Cloudflare very well, and some websites have it implemented, and also because I've been interested in backend development lately, I decided to develop an API and leave that to the backend.
+
+It's currently hosted on an AWS instance, but I should just move it to AWS API Gateway later.
