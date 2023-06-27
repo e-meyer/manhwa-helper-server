@@ -1,4 +1,6 @@
-from flask import Flask
+import json
+import os
+from flask import Flask, jsonify
 from flask import request
 from bs4 import BeautifulSoup
 import requests
@@ -46,10 +48,14 @@ def asura():
         page_number += 1
         sleep(10)
 
-    return {
+    scraped_data = {
         "website": "Asura",
         "manhwa_data": manhwa_data
     }
+
+    save_manhwa_data("Asura", scraped_data)
+
+    return scraped_data
 
 
 @ app.route('/flame')
@@ -107,6 +113,21 @@ def request_website_data(url, headers):
         raise Exception(f"Request error: {str(e)}")
     except Exception as e:
         raise Exception(f"Error: {str(e)}")
+
+
+def save_manhwa_data(file_name, data):
+    output_file_path = os.path.join("data", file_name + ".json")
+    with open(output_file_path, "w") as json_file:
+        json.dump(data, json_file)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    response = {
+        "status": 404,
+        "message": "Route not found"
+    }
+    return jsonify(response), 404
 
 
 if __name__ == '__main__':
