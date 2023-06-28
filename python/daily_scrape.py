@@ -6,12 +6,11 @@ from bs4 import BeautifulSoup
 import requests
 from time import sleep
 
-from websites.asura import asura_search_scraper
-from websites.flame import flame_search_scraper
-from websites.luminous import luminous_search_scraper
-from websites.reaper import reaper_search_scraper
-# https://www.asurascans.com/manga/?page=1
-# https://flamescans.org/series/?page=1
+from scanlators.asura import asura_search_scraper
+from scanlators.flame import flame_search_scraper
+from scanlators.luminous import luminous_search_scraper
+from scanlators.reaper import reaper_search_scraper
+
 app = Flask(__name__)
 
 
@@ -23,7 +22,7 @@ def asura():
     while True:
         url = "https://www.asurascans.com/manga/?page=" + str(page_number)
 
-        response = request_website_data(
+        response = request_scanlator_data(
             url,
             headers={
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
@@ -49,7 +48,7 @@ def asura():
         sleep(10)
 
     scraped_data = {
-        "website": "Asura",
+        "scanlator": "Asura",
         "manhwa_data": manhwa_data
     }
 
@@ -66,7 +65,7 @@ def flame():
     while True:
         url = "https://flamescans.org/series/?page=" + str(page_number)
 
-        response = request_website_data(
+        response = request_scanlator_data(
             url,
             headers={
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
@@ -91,7 +90,7 @@ def flame():
         sleep(10)
 
     scraped_data = {
-        "website": "Flame",
+        "scanlator": "Flame",
         "manhwa_data": manhwa_data
     }
 
@@ -100,7 +99,7 @@ def flame():
     return scraped_data
 
 
-def request_website_data(url, headers):
+def request_scanlator_data(url, headers):
     try:
         response = requests.get(
             url,
@@ -142,7 +141,7 @@ if __name__ == '__main__':
 #     query = request.args.get('query')
 #     url="https://luminousscans.com/?s=" + query
 
-#     response = request_website_data(
+#     response = request_scanlator_data(
 #         url,
 #         headers={
 #             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
@@ -158,7 +157,7 @@ if __name__ == '__main__':
 #     )
 
 #     return {
-#         "website": "Luminous",
+#         "scanlator": "Luminous",
 #         "manhwa_data": manhwa_data
 #     }
 
@@ -167,7 +166,7 @@ if __name__ == '__main__':
 #     query = request.args.get('query')
 #     url="https://reaperscans.com/"
 
-#     response = request_website_data(
+#     response = request_scanlator_data(
 #         url,
 #         headers={
 #             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
@@ -177,6 +176,6 @@ if __name__ == '__main__':
 #     manhwa_data = reaper_search_scraper(response, query)
 
 #     return {
-#         "website": "Reaper",
+#         "scanlator": "Reaper",
 #         "manhwa_data": manhwa_data,
 #     }

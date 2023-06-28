@@ -13,13 +13,16 @@ def get_scanlator_data(scanlator_name):
 
     search = request.args.get('s')
 
+    # If there is no query
     if not search:
         return jsonify({'error': 'Search parameter is required'}), 400
 
     file_path = os.path.join('data', f'{scanlator_name}.json')
 
+    # If the scanlator is not supported
     if scanlator_name.lower() not in supported_scanlators:
         return jsonify({'error': 'Scanlator not supported'}), 400
+    # If there is no data for the selected scanlator
     elif not os.path.exists(file_path):
         return jsonify({'error': 'Data for scanlator not found'}), 404
     else:
