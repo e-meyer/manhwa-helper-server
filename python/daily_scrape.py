@@ -135,31 +135,6 @@ def reaper():
     return scraped_data
 
 
-def request_scanlator_data(url, headers):
-    try:
-        response = requests.get(
-            url,
-            headers=headers,
-        )
-        response.raise_for_status()
-
-        return response
-    except requests.exceptions.Timeout as e:
-        raise Exception(f"Request timed out: {str(e)}")
-    except requests.exceptions.HTTPError as e:
-        raise Exception(f"HTTP error: {str(e)}")
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"Request error: {str(e)}")
-    except Exception as e:
-        raise Exception(f"Error: {str(e)}")
-
-
-def save_manhwa_data(file_name, data):
-    output_file_path = os.path.join("data", file_name + ".json")
-    with open(output_file_path, "w") as json_file:
-        json.dump(data, json_file)
-
-
 def luminous():
     page_number = 1
     manhwa_data = []
@@ -201,4 +176,38 @@ def luminous():
 
     return scraped_data
 
-luminous()
+
+def request_scanlator_data(url, headers):
+    try:
+        response = requests.get(
+            url,
+            headers=headers,
+        )
+        response.raise_for_status()
+
+        return response
+    except requests.exceptions.Timeout as e:
+        raise Exception(f"Request timed out: {str(e)}")
+    except requests.exceptions.HTTPError as e:
+        raise Exception(f"HTTP error: {str(e)}")
+    except requests.exceptions.RequestException as e:
+        raise Exception(f"Request error: {str(e)}")
+    except Exception as e:
+        raise Exception(f"Error: {str(e)}")
+
+
+def save_manhwa_data(file_name, data):
+    output_file_path = os.path.join("data", file_name + ".json")
+    with open(output_file_path, "w") as json_file:
+        json.dump(data, json_file)
+
+
+def main():
+    asura()
+    luminous()
+    flame()
+    reaper()
+
+
+if __name__ == "__main__":
+    main()
