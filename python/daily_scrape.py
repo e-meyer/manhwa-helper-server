@@ -53,12 +53,12 @@ def asura():
         "manhwa_data": manhwa_data
     }
 
-    save_manhwa_data("Asura", scraped_data)
+    save_manhwa_data("asura", scraped_data)
 
     return scraped_data
 
 
-@ app.route('/flame')
+@app.route('/flame')
 def flame():
     page_number = 1
     manhwa_data = []
@@ -90,10 +90,14 @@ def flame():
         page_number += 1
         sleep(10)
 
-    return {
+    scraped_data = {
         "website": "Flame",
         "manhwa_data": manhwa_data
     }
+
+    save_manhwa_data("flame", scraped_data)
+
+    return scraped_data
 
 
 def request_website_data(url, headers):
