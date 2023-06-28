@@ -155,7 +155,6 @@ def luminous():
             title_selector="div.bigor > div.tt",
             cover_url_selector="div.limit > img",
             chapter_number_selector="div.epxs",
-            status_selector="div.limit > div.status",
         )
 
         if len(data_returned) == 0:
@@ -204,9 +203,13 @@ def save_manhwa_data(file_name, data):
 
 def main():
     asura()
+    print('done scraping asura')
     luminous()
+    print('done scraping lumi')
     flame()
+    print('done scraping flame')
     reaper()
+    print('done scraping reaper')
 
 
 if __name__ == "__main__":
