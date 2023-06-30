@@ -109,7 +109,7 @@ def notify_demonic_evolution():
                                   'chapter_number': 'Chapter 16',
                                   'chapter_url': 'https://www.asurascans.com/demonic-evolution-chapter-16/',
                                   'cover_url': 'https://www.asurascans.com/wp-content/uploads/2023/02/tIEELUSJN.webp-t.w640-vert-copyCUnetauto_scaleLevel3width-1000.jpg',
-                                  'notification_timestamp': (datetime.now() - timedelta(days=2, hours=4)).isoformat()
+                                  'notification_timestamp': datetime.now().isoformat()
                                   })
 
 
