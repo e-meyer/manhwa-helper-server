@@ -16,6 +16,7 @@ SCANLATOR_URL = {
     "flame": "https://www.flamescans.org/page/1"
 }
 
+
 SCANLATOR_SELECTOR = {
     "asura": {
         "title_selector": "div.luf > a.series",
@@ -27,6 +28,7 @@ SCANLATOR_SELECTOR = {
         "chapters_url_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.chapter-list > a"
     }
 }
+
 
 SCANLATOR_DATA_SCRAPER = {
     "asura": asura_data,
