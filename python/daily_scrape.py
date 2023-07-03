@@ -41,16 +41,11 @@ def asura():
             manhwa_data.append(item)
 
         page_number += 1
-        sleep(10)
+        sleep(5)
 
-    scraped_data = {
-        "scanlator": "Asura",
-        "manhwa_data": manhwa_data
-    }
+    save_manhwa_data("asura", manhwa_data)
 
-    save_manhwa_data("asura", scraped_data)
-
-    return scraped_data
+    return manhwa_data
 
 
 def flame():
@@ -82,16 +77,11 @@ def flame():
             manhwa_data.append(item)
 
         page_number += 1
-        sleep(10)
+        sleep(5)
 
-    scraped_data = {
-        "scanlator": "Flame",
-        "manhwa_data": manhwa_data
-    }
+    save_manhwa_data("flame", manhwa_data)
 
-    save_manhwa_data("flame", scraped_data)
-
-    return scraped_data
+    return manhwa_data
 
 
 def reaper():
@@ -204,12 +194,12 @@ def save_manhwa_data(file_name, data):
 def main():
     asura()
     print('done scraping asura')
-    luminous()
-    print('done scraping lumi')
+    # luminous()
+    # print('done scraping lumi')
     flame()
     print('done scraping flame')
-    reaper()
-    print('done scraping reaper')
+    # reaper()
+    # print('done scraping reaper')
 
 
 if __name__ == "__main__":
