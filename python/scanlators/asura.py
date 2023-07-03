@@ -2,11 +2,21 @@ from bs4 import BeautifulSoup
 import re
 
 
-def asura_search_scraper(resp, manhwa_page_url_selector, title_selector, cover_url_selector, chapter_number_selector, status_selector):
+def asura_search_scraper(resp, manhwa_page_url_selector, title_selector, cover_url_selector, chapter_number_selector):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     page_url = [element.get('href', '').strip()
                 for element in soup.select(manhwa_page_url_selector)]
+
+    items = soup.select(chapter_number_selector)
+
+    chapters = [item.get_text(strip=True) for item in items]
+
+    chapters_links = [
+        item.get('href', '').strip()
+        for item in items
+        if "title" not in item.attrs
+    ]
 
     title_elements = soup.select(title_selector)
     titles = [title.get_text().strip() for title in title_elements]
