@@ -26,12 +26,12 @@ def reaper_search_scraper(resp, manhwa_page_url_selector, title_selector, cover_
 
             titles.append(a_tags[1].get_text(strip=True))
 
-    chapters_elements = soup.find_all('dl')
-    chapters = []
-    for dl in chapters_elements:
-        dd_tags = dl.find_all('dd')
-        for dd in dd_tags:
-            chapters.append(dd.text.strip())
+    # chapters_elements = soup.find_all('dl')
+    # chapters = []
+    # for dl in chapters_elements:
+    #     dd_tags = dl.find_all('dd')
+    #     for dd in dd_tags:
+    #         chapters.append(dd.text.strip())
 
     manhwa_data = []
 
@@ -41,10 +41,6 @@ def reaper_search_scraper(resp, manhwa_page_url_selector, title_selector, cover_
             "page_url": page_url[i],
             "cover_url": cover_url[i],
         }
-
-        if chapters and i < len(chapters):
-            numbers = re.findall(r'\d+', chapters[i])
-            data["chapters"] = numbers[0] if numbers else ''
 
         manhwa_data.append(data)
 
