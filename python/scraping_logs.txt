@@ -1212,3 +1212,7 @@ For more information check: https://httpstatuses.com/403
 [30/06/2023 16:04:40] Notification: Success sending player_who_returned_10000_years_later
 [30/06/2023 16:04:51] Notification: Success sending player_who_returned_10000_years_later
 [30/06/2023 16:05:13] Notification: Success sending player_who_returned_10000_years_later
+[03/07/2023 16:09:10] Server: Error while scraping Luminous
+HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
+For more information check: https://httpstatuses.com/403
+[03/07/2023 16:09:10] Server: Success scraping Asura
