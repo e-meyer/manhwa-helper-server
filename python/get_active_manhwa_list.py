@@ -5,18 +5,25 @@ from bs4 import BeautifulSoup
 import requests
 from time import sleep
 
-from scanlators.asura import asura_search_scraper
-from scanlators.flame import flame_search_scraper
-from scanlators.luminous import luminous_search_scraper
-from scanlators.reaper import reaper_search_scraper
+from scanlators.active.asura import asura_search_scraper
+from scanlators.active.flame import flame_search_scraper
+from scanlators.active.luminous import luminous_search_scraper
+from scanlators.active.reaper import reaper_search_scraper
+
+
+ASURA_URL = "https://www.asurascans.com/manga/?page="
+FLAME_URL = "https://flamescans.org/series/?page="
+LUMINOUS_URL = "https://www.luminousscans.com/series/?page="
+REAPER_URL = "https://reaperscans.com/comics?page="
+INITIAL_PAGE = 1
 
 
 def asura():
-    page_number = 1
+    page_number = INITIAL_PAGE
     manhwa_data = []
 
     while True:
-        url = "https://www.asurascans.com/manga/?page=" + str(page_number)
+        url = ASURA_URL + str(page_number)
 
         response = request_scanlator_data(
             url,
@@ -30,8 +37,6 @@ def asura():
             manhwa_page_url_selector="div.bsx > a",
             title_selector="div.bigor > div.tt",
             cover_url_selector="div.limit > img",
-            chapter_number_selector="div.epxs",
-            status_selector="div.limit > div.status",
         )
 
         if len(data_returned) == 0:
@@ -45,15 +50,13 @@ def asura():
 
     save_manhwa_data("asura", manhwa_data)
 
-    return manhwa_data
-
 
 def flame():
-    page_number = 1
+    page_number = INITIAL_PAGE
     manhwa_data = []
 
     while True:
-        url = "https://flamescans.org/series/?page=" + str(page_number)
+        url = FLAME_URL + str(page_number)
 
         response = request_scanlator_data(
             url,
@@ -66,8 +69,6 @@ def flame():
             manhwa_page_url_selector="div.bsx > a",
             title_selector="div.bigor > div.tt",
             cover_url_selector="div.limit > img",
-            chapter_number_selector="div.epxs",
-            status_selector="div.status > i"
         )
 
         if len(data_returned) == 0:
@@ -81,15 +82,13 @@ def flame():
 
     save_manhwa_data("flame", manhwa_data)
 
-    return manhwa_data
-
 
 def reaper():
-    page_number = 1
+    page_number = INITIAL_PAGE
     manhwa_data = []
 
     while True:
-        url = "https://reaperscans.com/comics?page=" + str(page_number)
+        url = REAPER_URL + str(page_number)
 
         response = request_scanlator_data(
             url,
@@ -103,7 +102,6 @@ def reaper():
             manhwa_page_url_selector="li > div > a",
             title_selector="li > div > ",
             cover_url_selector="li > div > a > img",
-            chapter_number_selector="div.epxs",
         )
 
         if len(data_returned) == 0:
@@ -115,22 +113,15 @@ def reaper():
         page_number += 1
         sleep(10)
 
-    scraped_data = {
-        "scanlator": "Reaper",
-        "manhwa_data": manhwa_data
-    }
-
-    save_manhwa_data("reaper", scraped_data)
-
-    return scraped_data
+    save_manhwa_data("reaper", manhwa_data)
 
 
 def luminous():
-    page_number = 1
+    page_number = INITIAL_PAGE
     manhwa_data = []
 
     while True:
-        url = "https://www.luminousscans.com/series/?page=" + str(page_number)
+        url = LUMINOUS_URL + str(page_number)
 
         response = request_scanlator_data(
             url,
@@ -144,7 +135,6 @@ def luminous():
             manhwa_page_url_selector="div.bsx > a",
             title_selector="div.bigor > div.tt",
             cover_url_selector="div.limit > img",
-            chapter_number_selector="div.epxs",
         )
 
         if len(data_returned) == 0:
@@ -156,14 +146,7 @@ def luminous():
         page_number += 1
         sleep(10)
 
-    scraped_data = {
-        "scanlator": "Luminous",
-        "manhwa_data": manhwa_data
-    }
-
-    save_manhwa_data("luminous", scraped_data)
-
-    return scraped_data
+    save_manhwa_data("luminous", manhwa_data)
 
 
 def request_scanlator_data(url, headers):
