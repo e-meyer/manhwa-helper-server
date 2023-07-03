@@ -5,8 +5,6 @@ import requests
 from time import sleep
 from bs4 import BeautifulSoup
 
-from scanlators.asura import asura_search_scraper
-
 
 def asura():
     page_number = 1
@@ -86,8 +84,17 @@ def luminous():
         page_number += 1
         sleep(10)
 
+    data1 = load_manhwa_data("data", "flame")
+    data2 = manhwa_data
+
+    data2_dict = {d['title']: d['latest_chapter'] for d in data2}
+
+    for d1 in data1:
+        if d1['title'] in data2_dict:
+            d1['latest_chapter'] = data2_dict[d1['title']]
+
     if len(manhwa_data) > 0:
-        save_manhwa_data("luminous", manhwa_data)
+        save_manhwa_data("flame", data1)
 
 
 def flame():
