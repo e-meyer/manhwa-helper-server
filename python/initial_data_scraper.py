@@ -22,17 +22,13 @@ def asura():
                     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
                 },
             )
-
         except Exception as e:
             break
 
-        data_returned = asura_search_scraper(
+        data_returned = asura_data(
             response,
-            manhwa_page_url_selector="div.luf > a",
             title_selector="div.luf > a.series",
-            cover_url_selector="div.uta > div.imgu > a > img",
-            chapter_number_selector="div.luf > ul > li > a"
-            # chapter_number_selector="div.luf > ul > li:first-child > a",
+            chapters_selector="div.luf > ul > li:first-child > a"
         )
 
         if len(data_returned) == 0:
@@ -42,10 +38,19 @@ def asura():
             manhwa_data.append(item)
 
         page_number += 1
-        sleep(10)
+        sleep(5)
+
+    data1 = load_manhwa_data("data", "asura")
+    data2 = manhwa_data
+
+    data2_dict = {d['title']: d['latest_chapter'] for d in data2}
+
+    for d1 in data1:
+        if d1['title'] in data2_dict:
+            d1['latest_chapter'] = data2_dict[d1['title']]
 
     if len(manhwa_data) > 0:
-        save_manhwa_data("asura", manhwa_data)
+        save_manhwa_data("asura", data1)
 
 
 def luminous():
@@ -116,10 +121,19 @@ def flame():
             manhwa_data.append(item)
 
         page_number += 1
-        sleep(10)
+        sleep(5)
+
+    data1 = load_manhwa_data("data", "flame")
+    data2 = manhwa_data
+
+    data2_dict = {d['title']: d['latest_chapter'] for d in data2}
+
+    for d1 in data1:
+        if d1['title'] in data2_dict:
+            d1['latest_chapter'] = data2_dict[d1['title']]
 
     if len(manhwa_data) > 0:
-        save_manhwa_data("flame", manhwa_data)
+        save_manhwa_data("flame", data1)
 
 
 def request_scanlator_data(url, headers):
@@ -141,13 +155,10 @@ def request_scanlator_data(url, headers):
         raise Exception(f"Error: {str(e)}")
 
 
-def asura_data(resp, manhwa_page_url_selector, title_selector, chapters_selector):
+def asura_data(resp, title_selector, chapters_selector):
     soup = BeautifulSoup(resp.text, 'lxml')
     titles = [element.get('title', '').strip()
               for element in soup.select(title_selector)]
-
-    page_url = [element.get('href', '').strip()
-            for element in soup.select(manhwa_page_url_selector)]
 
     chapter_items = soup.select(chapters_selector)
 
@@ -169,7 +180,6 @@ def asura_data(resp, manhwa_page_url_selector, title_selector, chapters_selector
             chapters) else get_chapter_number(chapters[i])
         manhwa_data.append({
             "title": title,
-            "page_url": page_url[i],
             "latest_chapter": latest_chapter,
         })
 
@@ -253,6 +263,13 @@ def get_chapter_number(title):
         return match.group(1)
     else:
         return None
+
+
+def load_manhwa_data(path, file_name):
+    input_file_path = os.path.join(path, file_name + ".json")
+    with open(input_file_path, "r") as json_file:
+        json_data = json.load(json_file)
+        return json_data
 
 
 def main():
