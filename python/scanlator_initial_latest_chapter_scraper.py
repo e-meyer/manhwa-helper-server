@@ -84,17 +84,18 @@ def call():
             page_number += 1
             sleep(5)
 
-        data1 = load_manhwa_data("data", scanlator)
-        data2 = manhwa_data
+        existing_data = load_manhwa_data("data", scanlator)
+        new_data = manhwa_data
 
-        data2_dict = {d['title']: d['latest_chapter'] for d in data2}
+        new_data_dict = {
+            new_item['title']: new_item['latest_chapter'] for new_item in new_data}
 
-        for d1 in data1:
-            if d1['title'] in data2_dict:
-                d1['latest_chapter'] = data2_dict[d1['title']]
+        for item in existing_data:
+            if item['title'] in new_data_dict:
+                item['latest_chapter'] = new_data_dict[item['title']]
 
         if len(manhwa_data) > 0:
-            save_manhwa_data("data/notifications", scanlator, data1)
+            save_manhwa_data("data/notifications", scanlator, existing_data)
 
 
 def main():
