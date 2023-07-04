@@ -1,12 +1,7 @@
-import json
-import os
-import re
-import requests
 from time import sleep
-from bs4 import BeautifulSoup
 
-from get_active_manhwa_list import request_scanlator_data
 from helpers.file_handler import load_manhwa_data, save_manhwa_data
+from helpers.request_scanlator_data import request_scanlator_data
 from scanlators.asura.asura_initial_latest_chapter import asura_initial_latest_chapter
 from scanlators.flame.flame_initial_latest_chapter import flame_initial_latest_chapter
 from scanlators.luminous.luminous_initial_latest_chapter import luminous_initial_latest_chapter
@@ -15,8 +10,8 @@ from scanlators.reaper.reaper_initial_latest_chapter import reaper_initial_lates
 SCANLATORS = [
     "asura",
     "flame",
-    # "luminous",
-    # "reaper"
+    "luminous",
+    "reaper"
 ]
 
 

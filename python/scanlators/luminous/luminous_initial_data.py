@@ -3,17 +3,17 @@ from bs4 import BeautifulSoup
 import re
 
 
-def luminous_initial_data(resp, manhwa_page_url_selector, title_selector, cover_url_selector):
+def luminous_initial_data(resp, selectors):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     page_url = [element.get('href', '').strip()
-                for element in soup.select(manhwa_page_url_selector)]
+                for element in soup.select(selectors["manhwa_page_url_selector"])]
 
-    title_elements = soup.select(title_selector)
+    title_elements = soup.select(selectors["title_selector"])
     titles = [title.get_text().strip() for title in title_elements]
 
     cover_url = [element.get('src', '').strip()
-                 for element in soup.select(cover_url_selector)]
+                 for element in soup.select(selectors["cover_url_selector"])]
 
     dropped_titles = []
 
