@@ -1,8 +1,9 @@
+import json
 from bs4 import BeautifulSoup
 import re
 
 
-def asura_search_scraper(resp, manhwa_page_url_selector, title_selector, cover_url_selector):
+def luminous_initial_data(resp, manhwa_page_url_selector, title_selector, cover_url_selector):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     page_url = [element.get('href', '').strip()
@@ -14,15 +15,20 @@ def asura_search_scraper(resp, manhwa_page_url_selector, title_selector, cover_u
     cover_url = [element.get('src', '').strip()
                  for element in soup.select(cover_url_selector)]
 
-    status_spans = soup.find_all("span", class_="status")
     dropped_titles = []
 
-    for status_span in status_spans:
-        parent_div = status_span.find_parent("div", class_="limit")
-        sibling_div = parent_div.find_next_sibling("div", class_="bigor")
-        child_div = sibling_div.find("div", class_="tt")
-        dropped_title = child_div.text.strip()
-        dropped_titles.append(dropped_title)
+    scripts = soup.find_all('script', type="text/javascript")
+    for script in scripts:
+        if 'const dropped' in script.text:
+            js_code = script.text
+            break
+
+    dropped_array_str = re.search(r'const dropped = {[^}]*}', js_code).group()
+
+    titles_str = re.search(r'\[.*\]', dropped_array_str).group()
+
+    titles_str = titles_str[1:-1]
+    dropped_titles = [title.strip()[1:-1] for title in titles_str.split(',')]
 
     manhwa_data = []
 

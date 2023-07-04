@@ -6,7 +6,7 @@ import re
 import requests
 
 
-def reaper_search_scraper(resp, manhwa_page_url_selector, title_selector, cover_url_selector):
+def reaper_initial_data(resp, manhwa_page_url_selector, title_selector, cover_url_selector):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     li_tags = soup.find_all('li')

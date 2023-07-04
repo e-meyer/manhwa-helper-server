@@ -1,8 +1,9 @@
-from helpers.get_chapter_number import get_chapter_number
-
 from bs4 import BeautifulSoup
 
-def asura_data(resp, selectors):
+from helpers.get_chapter_number import get_chapter_number
+
+
+def luminous_initial_latest_chapter(resp, selectors):
     soup = BeautifulSoup(resp.text, 'lxml')
     titles = [element.get('title', '').strip()
               for element in soup.select(selectors["title_selector"])]

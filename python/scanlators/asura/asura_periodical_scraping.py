@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 
 
-def asura_data(resp, selectors):
+def asura_periodical_scraping(resp, selectors):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     titles = [element.get('title', '').strip()

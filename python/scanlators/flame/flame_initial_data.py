@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 
 
-def flame_search_scraper(resp, manhwa_page_url_selector, title_selector, cover_url_selector):
+def flame_initial_data(resp, manhwa_page_url_selector, title_selector, cover_url_selector):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     page_url = [element.get('href', '').strip()

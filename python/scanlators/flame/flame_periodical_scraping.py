@@ -2,7 +2,7 @@ import re
 from bs4 import BeautifulSoup
 
 
-def flame_data(resp, selectors):
+def flame_periodical_scraping(resp, selectors):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     titles = [element.get_text().strip()

@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 
 from helpers.get_chapter_number import get_chapter_number
 
-def flame_data(resp, selectors):
+
+def flame_initial_latest_chapter(resp, selectors):
     soup = BeautifulSoup(resp.text, 'lxml')
     titles = [element.get_text().strip()
               for element in soup.select(selectors["title_selector"])]
