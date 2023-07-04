@@ -3,6 +3,8 @@ import os
 from flask import Flask, jsonify
 from flask import request
 
+from helpers.search_titles import search_titles
+
 
 app = Flask(__name__)
 
@@ -42,23 +44,6 @@ def not_found(error):
         "message": "Route not found"
     }
     return jsonify(response), 404
-
-
-def search_titles(query, data):
-    results = []
-    query_words = query.lower().split()
-    for item in data["manhwa_data"]:
-        title_words = item["title"].lower().split()
-        if all(any(query_word in title_word for title_word in title_words) for query_word in query_words):
-            results.append(item)
-    return results
-
-
-def load_manhwa_data(file_name):
-    input_file_path = os.path.join("data", file_name + ".json")
-    with open(input_file_path, "r") as json_file:
-        json_data = json.load(json_file)
-        return json_data
 
 
 if __name__ == '__main__':
