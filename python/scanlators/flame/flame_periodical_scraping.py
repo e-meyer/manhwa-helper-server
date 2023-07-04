@@ -20,6 +20,9 @@ def flame_periodical_scraping(resp, selectors):
     cover_url = [element.get('src', '').strip()
                  for element in soup.select(selectors["cover_url_selector"])]
 
+    page_url = [element.get('href', '').strip()
+                for element in soup.select(selectors["page_url_selector"])]
+
     manhwa_data = []
     for i, title in enumerate(titles):
         if i >= 10:
@@ -32,6 +35,7 @@ def flame_periodical_scraping(resp, selectors):
 
         data_item = {
             "title": title,
+            "page_url": page_url[i],
             "chapters": chapters[i * 3: (i + 1) * 3],
             "chapters_urls": chapters_urls[i * 3: (i + 1) * 3],
             "cover_url": new_url,

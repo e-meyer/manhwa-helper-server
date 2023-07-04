@@ -22,13 +22,14 @@ SCANLATOR_SELECTOR = {
         "title_selector": "div.luf > a.series",
         "chapters_selector": "div.luf > ul > li > a",
         "cover_url_selector": "div.imgu > a.series > img",
-        "page_url": "div.imgu > a"
+        "page_url_selector": "div.imgu > a"
     },
     "flame": {
         "title_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.info > a > div.tt",
         "chapters_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.chapter-list > a > div.adds > div.epxs",
         "chapters_url_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.chapter-list > a",
-        "cover_url_selector": "div.latest-updates > div.bs > div.bsx > a > div.limit > img"
+        "cover_url_selector": "div.latest-updates > div.bs > div.bsx > a > div.limit > img",
+        "page_url_selector": "div.latest-updates > div.bs > div.bsx > a"
     }
 }
 
