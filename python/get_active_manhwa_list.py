@@ -177,12 +177,12 @@ def save_manhwa_data(file_name, data):
 def main():
     asura()
     print('done scraping asura')
-    # luminous()
-    # print('done scraping lumi')
+    luminous()
+    print('done scraping lumi')
     flame()
     print('done scraping flame')
-    # reaper()
-    # print('done scraping reaper')
+    reaper()
+    print('done scraping reaper')
 
 
 if __name__ == "__main__":
