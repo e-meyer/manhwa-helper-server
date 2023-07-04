@@ -11,6 +11,9 @@ def asura_periodical_scraping(resp, selectors):
     chapters = [re.findall(r'\d+', item.text.strip())[0]
                 for item in soup.select(selectors["chapters_selector"])]
 
+    page_url = [element.get('href', '').strip()
+                for element in soup.select(selectors["page_url"])]
+
     chapters_urls = [
         element.get('href', '').strip()
         for element in soup.select(selectors["chapters_selector"])
@@ -23,6 +26,7 @@ def asura_periodical_scraping(resp, selectors):
             break
         manhwa_data.append({
             "title": title,
+            "page_url": page_url[i],
             "chapters": chapters[i * 3: (i + 1) * 3],
             "chapters_urls": chapters_urls[i * 3: (i + 1) * 3],
         })

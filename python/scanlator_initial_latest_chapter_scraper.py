@@ -23,7 +23,7 @@ SCANLATOR_URL = {
 }
 
 
-SCANLATOR_INITIAL_DATA_SELECTOR = {
+SCANLATOR_INITIAL_LATEST_CHAPTER_SELECTOR = {
     "asura": {
         "title_selector": "div.luf > a.series",
         "chapters_selector": "div.luf > ul > li:first-child > a"
@@ -43,7 +43,7 @@ SCANLATOR_INITIAL_DATA_SELECTOR = {
 }
 
 
-SCANLATOR_INITIAL_DATA_SCRAPER_FUNCTION = {
+SCANLATOR_INITIAL_LATEST_CHAPTER_SCRAPER_FUNCTION = {
     "asura": asura_initial_latest_chapter,
     "flame": flame_initial_latest_chapter,
     "luminous": luminous_initial_latest_chapter,
@@ -70,8 +70,8 @@ def call():
             except Exception as e:
                 break
 
-            selector = SCANLATOR_INITIAL_DATA_SELECTOR[scanlator]
-            scanlator_scraper_function = SCANLATOR_INITIAL_DATA_SCRAPER_FUNCTION[scanlator]
+            selector = SCANLATOR_INITIAL_LATEST_CHAPTER_SELECTOR[scanlator]
+            scanlator_scraper_function = SCANLATOR_INITIAL_LATEST_CHAPTER_SCRAPER_FUNCTION[scanlator]
 
             data_returned = scanlator_scraper_function(response, selector)
 

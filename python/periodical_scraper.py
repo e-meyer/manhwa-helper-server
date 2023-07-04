@@ -20,12 +20,15 @@ SCANLATOR_URL = {
 SCANLATOR_SELECTOR = {
     "asura": {
         "title_selector": "div.luf > a.series",
-        "chapters_selector": "div.luf > ul > li > a"
+        "chapters_selector": "div.luf > ul > li > a",
+        "cover_url_selector": "div.imgu > a.series > img",
+        "page_url": "div.imgu > a"
     },
     "flame": {
         "title_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.info > a > div.tt",
         "chapters_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.chapter-list > a > div.adds > div.epxs",
-        "chapters_url_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.chapter-list > a"
+        "chapters_url_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.chapter-list > a",
+        "cover_url_selector": "div.latest-updates > div.bs > div.bsx > a > div.limit > img"
     }
 }
 
@@ -59,12 +62,43 @@ def call():
         existing_data_dict = {d['title']: d for d in existing_data}
 
         result = get_updated_manhwas(
-            data, existing_data_dict, result)
+            item, data, existing_data_dict, result)
+
+        update_latest_chapter(result)
 
     print(json.dumps(result, indent=2))
 
 
-def get_updated_manhwas(new_data, existing_data_dict, result):
+def update_latest_chapter(new_data):
+    for item in new_data:
+        file_name = f"data/notifications/{item['website_name']}.json"
+        with open(file_name, 'r') as f:
+            existing_data = json.load(f)
+
+        existing_data_dict = {d['title']: d for d in existing_data}
+        for data in new_data:
+            if data['title'] in existing_data_dict:
+                existing_data_dict[data['title']]['latest_chapter'] = str(
+                    max(data['new_chapters_numbers'], default=0))
+            else:
+                new_title = {
+                    'title': data['title'],
+                    'page_url': data['page_url'],
+                    'cover_url': data['cover_url'],
+                    'latest_chapter': str(max(data['new_chapters_numbers'], default=0))
+                }
+                if 'smaller_cover_url' in data:
+                    new_title['smaller_cover_url'] = data['smaller_cover_url']
+                existing_data.append(new_title)
+
+        with open(file_name, 'w') as f:
+            json.dump(existing_data, f, indent=2)
+
+        with open('data/notifications.json', 'w') as f:
+            json.dump(new_data, f, indent=2)
+
+
+def get_updated_manhwas(scanlator_name, new_data, existing_data_dict, result):
     for data in new_data:
         if data['title'] in existing_data_dict:
             d1 = existing_data_dict[data['title']]
@@ -85,6 +119,7 @@ def get_updated_manhwas(new_data, existing_data_dict, result):
                 cover_url = d1['cover_url']
 
                 result.append({
+                    'website_name': scanlator_name,
                     'title': data['title'],
                     'new_chapters_numbers': new_chapters_numbers,
                     'new_chapters_urls': new_chapters_urls,

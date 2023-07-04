@@ -86,6 +86,8 @@ def call():
             for item in data_returned:
                 manhwa_data.append(item)
 
+            
+
             page_number += 1
             sleep(5)
 

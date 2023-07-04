@@ -17,14 +17,29 @@ def flame_periodical_scraping(resp, selectors):
         if "title" not in element.attrs
     ]
 
+    cover_url = [element.get('src', '').strip()
+                 for element in soup.select(selectors["cover_url_selector"])]
+
     manhwa_data = []
     for i, title in enumerate(titles):
         if i >= 10:
             break
-        manhwa_data.append({
+
+        cover = cover_url[i]
+        pattern = r"-\d{3}x\d{3}"
+
+        new_url = re.sub(pattern, "", cover)
+
+        data_item = {
             "title": title,
             "chapters": chapters[i * 3: (i + 1) * 3],
             "chapters_urls": chapters_urls[i * 3: (i + 1) * 3],
-        })
+            "cover_url": new_url,
+        }
+
+        if new_url != cover_url[i]:
+            data_item["smaller_cover_url"] = cover_url[i]
+
+        manhwa_data.append(data_item)
 
     return manhwa_data
