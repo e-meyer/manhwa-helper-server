@@ -2,8 +2,8 @@ import json
 
 from helpers.file_handler import load_manhwa_data
 from helpers.request_scanlator_data import request_scanlator_data
-from scanlators.periodical_scraping.asura import asura_data
-from scanlators.periodical_scraping.flame import flame_data
+from scanlators.asura.asura_periodical_scraping import asura_periodical_scraping
+from scanlators.flame.flame_periodical_scraping import flame_periodical_scraping
 
 SCANLATORS = [
     "asura",
@@ -31,8 +31,8 @@ SCANLATOR_SELECTOR = {
 
 
 SCANLATOR_DATA_SCRAPER = {
-    "asura": asura_data,
-    "flame": flame_data
+    "asura": asura_periodical_scraping,
+    "flame": flame_periodical_scraping
 }
 
 

@@ -7,16 +7,16 @@ from bs4 import BeautifulSoup
 
 from get_active_manhwa_list import request_scanlator_data
 from helpers.file_handler import load_manhwa_data, save_manhwa_data
-from scanlators.initial_scraping.asura import asura_data
-from scanlators.initial_scraping.flame import flame_data
-from scanlators.initial_scraping.luminous import luminous_data
-from scanlators.initial_scraping.reaper import reaper_data
+from scanlators.asura.asura_initial_latest_chapter import asura_initial_latest_chapter
+from scanlators.flame.flame_initial_latest_chapter import flame_initial_latest_chapter
+from scanlators.luminous.luminous_initial_latest_chapter import luminous_initial_latest_chapter
+from scanlators.reaper.reaper_initial_latest_chapter import reaper_initial_latest_chapter
 
 SCANLATORS = [
     "asura",
     "flame",
-    "luminous",
-    "reaper"
+    # "luminous",
+    # "reaper"
 ]
 
 
@@ -28,7 +28,7 @@ SCANLATOR_URL = {
 }
 
 
-SCANLATOR_SELECTOR = {
+SCANLATOR_INITIAL_DATA_SELECTOR = {
     "asura": {
         "title_selector": "div.luf > a.series",
         "chapters_selector": "div.luf > ul > li:first-child > a"
@@ -48,12 +48,13 @@ SCANLATOR_SELECTOR = {
 }
 
 
-SCANLATOR_DATA_SCRAPER = {
-    "asura": asura_data,
-    "flame": flame_data,
-    "luminous": luminous_data,
-    "reaper": reaper_data,
+SCANLATOR_INITIAL_DATA_SCRAPER_FUNCTION = {
+    "asura": asura_initial_latest_chapter,
+    "flame": flame_initial_latest_chapter,
+    "luminous": luminous_initial_latest_chapter,
+    "reaper": reaper_initial_latest_chapter,
 }
+
 
 def call():
     for scanlator in SCANLATORS:
@@ -61,7 +62,6 @@ def call():
         manhwa_data = []
 
         while True:
-            print(page_number)
             initial_url = SCANLATOR_URL.get(scanlator)
             url = initial_url + str(page_number)
 
@@ -75,10 +75,10 @@ def call():
             except Exception as e:
                 break
 
-            selectors = SCANLATOR_SELECTOR[scanlator]
-            data_scraper = SCANLATOR_DATA_SCRAPER[scanlator]
-            
-            data_returned = data_scraper(response, selectors)
+            selector = SCANLATOR_INITIAL_DATA_SELECTOR[scanlator]
+            scanlator_scraper_function = SCANLATOR_INITIAL_DATA_SCRAPER_FUNCTION[scanlator]
+
+            data_returned = scanlator_scraper_function(response, selector)
 
             if len(data_returned) == 0:
                 break
@@ -89,10 +89,9 @@ def call():
             page_number += 1
             sleep(5)
 
-        
         data1 = load_manhwa_data("data", scanlator)
         data2 = manhwa_data
-        
+
         data2_dict = {d['title']: d['latest_chapter'] for d in data2}
 
         for d1 in data1:

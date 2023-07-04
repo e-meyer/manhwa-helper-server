@@ -5,10 +5,13 @@ from bs4 import BeautifulSoup
 import requests
 from time import sleep
 
-from scanlators.active.asura import asura_search_scraper
-from scanlators.active.flame import flame_search_scraper
-from scanlators.active.luminous import luminous_search_scraper
-from scanlators.active.reaper import reaper_search_scraper
+from scanlators.asura.asura_initial_data import asura_initial_data
+from scanlators.flame.flame_initial_data import flame_initial_data
+from scanlators.luminous.luminous_initial_data import luminous_initial_data
+from scanlators.reaper.reaper_initial_data import reaper_initial_data
+
+
+SCANLATOR
 
 
 ASURA_URL = "https://www.asurascans.com/manga/?page="
@@ -32,7 +35,7 @@ def asura():
             },
         )
 
-        data_returned = asura_search_scraper(
+        data_returned = asura_initial_data(
             response,
             manhwa_page_url_selector="div.bsx > a",
             title_selector="div.bigor > div.tt",
@@ -64,7 +67,7 @@ def flame():
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
             },
         )
-        data_returned = flame_search_scraper(
+        data_returned = flame_initial_data(
             response,
             manhwa_page_url_selector="div.bsx > a",
             title_selector="div.bigor > div.tt",
@@ -97,7 +100,7 @@ def reaper():
             },
         )
 
-        data_returned = reaper_search_scraper(
+        data_returned = reaper_initial_data(
             response,
             manhwa_page_url_selector="li > div > a",
             title_selector="li > div > ",
@@ -130,7 +133,7 @@ def luminous():
             },
         )
 
-        data_returned = luminous_search_scraper(
+        data_returned = luminous_initial_data(
             response,
             manhwa_page_url_selector="div.bsx > a",
             title_selector="div.bigor > div.tt",
