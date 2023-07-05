@@ -10,8 +10,8 @@ from scanlators.reaper.reaper_initial_latest_chapter import reaper_initial_lates
 SCANLATORS = [
     "asura",
     "flame",
-    "luminous",
-    "reaper"
+    # "luminous",
+    # "reaper"
 ]
 
 
@@ -71,7 +71,8 @@ def call():
                 break
 
             selector = SCANLATOR_INITIAL_LATEST_CHAPTER_SELECTOR[scanlator]
-            scanlator_scraper_function = SCANLATOR_INITIAL_LATEST_CHAPTER_SCRAPER_FUNCTION[scanlator]
+            scanlator_scraper_function = SCANLATOR_INITIAL_LATEST_CHAPTER_SCRAPER_FUNCTION[
+                scanlator]
 
             data_returned = scanlator_scraper_function(response, selector)
 
@@ -95,7 +96,7 @@ def call():
                 item['latest_chapter'] = new_data_dict[item['title']]
 
         if len(manhwa_data) > 0:
-            save_manhwa_data("data/notifications", scanlator, existing_data)
+            save_manhwa_data("data", scanlator, existing_data)
 
 
 def main():
