@@ -1,15 +1,19 @@
 [
   {
-    "website_name": "asura",
-    "title": "Infinite Mage",
+    "website_name": "flame",
+    "title": "Ex and Ash",
+    "page_url": "https://flamescans.org/series/1688551321-ex-and-ash/",
     "new_chapters_numbers": [
-      41,
-      40
+      "89",
+      "88",
+      "87"
     ],
     "new_chapters_urls": [
-      "https://www.asurascans.com/infinite-mage-chapter-41/",
-      "https://www.asurascans.com/6179701029-infinite-mage-chapter-40/"
+      "https://flamescans.org/1688551261-ex-and-ash-chapter-89/",
+      "https://flamescans.org/1688551261-ex-and-ash-chapter-88/",
+      "https://flamescans.org/1688551261-ex-and-ash-chapter-87/"
     ],
-    "cover_url": "https://www.asurascans.com/wp-content/uploads/2022/12/infiniteMageCover01.png"
+    "cover_url": "https://flamescans.org/wp-content/uploads/2021/11/EXACOVER.jpg",
+    "smaller_cover_url": "https://flamescans.org/wp-content/uploads/2021/11/EXACOVER-242x350.jpg"
   }
 ]
