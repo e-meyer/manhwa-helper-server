@@ -58,26 +58,28 @@ def call():
 
         data = data_scraper(response, selectors)
 
-        existing_data = load_manhwa_data("data/notifications", item)
+        existing_data = load_manhwa_data("data", item)
 
         existing_data_dict = {d['title']: d for d in existing_data}
 
         result = get_updated_manhwas(
             item, data, existing_data_dict, result)
 
-        update_latest_chapter(result)
+        update_latest_chapter(item, result)
 
     print(json.dumps(result, indent=2))
 
 
-def update_latest_chapter(new_data):
+def update_latest_chapter(scanlator_name, new_data):
     for item in new_data:
-        file_name = f"data/notifications/{item['website_name']}.json"
+        file_name = f"data/{scanlator_name}.json"
         with open(file_name, 'r') as f:
             existing_data = json.load(f)
 
         existing_data_dict = {d['title']: d for d in existing_data}
+
         for data in new_data:
+            print(data['title'])
             if data['title'] in existing_data_dict:
                 existing_data_dict[data['title']]['latest_chapter'] = str(
                     max(data['new_chapters_numbers'], default=0))
@@ -95,11 +97,12 @@ def update_latest_chapter(new_data):
         with open(file_name, 'w') as f:
             json.dump(existing_data, f, indent=2)
 
-        with open('data/notifications.json', 'w') as f:
+        with open(f"data/notifications/{scanlator_name}.json", 'w') as f:
             json.dump(new_data, f, indent=2)
 
 
 def get_updated_manhwas(scanlator_name, new_data, existing_data_dict, result):
+    result = []
     for data in new_data:
         if data['title'] in existing_data_dict:
             d1 = existing_data_dict[data['title']]
@@ -118,14 +121,27 @@ def get_updated_manhwas(scanlator_name, new_data, existing_data_dict, result):
 
             if new_chapters_urls:
                 cover_url = d1['cover_url']
-
-                result.append({
-                    'website_name': scanlator_name,
+                new_item = {
                     'title': data['title'],
+                    'page_url': data['page_url'],
                     'new_chapters_numbers': new_chapters_numbers,
                     'new_chapters_urls': new_chapters_urls,
                     'cover_url': cover_url,
-                })
+                }
+                if 'smaller_cover_url' in data:
+                    new_item['smaller_cover_url'] = data['smaller_cover_url']
+                result.append(new_item)
+        else:
+            new_item = {
+                'title': data['title'],
+                'page_url': data['page_url'],
+                'new_chapters_numbers': data['chapters'],
+                'new_chapters_urls': data['chapters_urls'],
+                'cover_url': data['cover_url'],
+            }
+            if 'smaller_cover_url' in data:
+                new_item['smaller_cover_url'] = data['smaller_cover_url']
+            result.append(new_item)
     return result
 
 
