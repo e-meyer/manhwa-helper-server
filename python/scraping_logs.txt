@@ -1216,3 +1216,34 @@ For more information check: https://httpstatuses.com/403
 HTTP error: Client error '403 Forbidden' for url 'https://luminousscans.com/'
 For more information check: https://httpstatuses.com/403
 [03/07/2023 16:09:10] Server: Success scraping Asura
+[06/07/2023 10:14:56] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:14:57] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:16:09] Notification: Success sending flame_the_ancient_sovereign_of_eternity
+[06/07/2023 10:16:10] Notification: Success sending flame_the_ancient_sovereign_of_eternity
+[06/07/2023 10:35:56] Notification: Success sending asura_necromancers_evolutionary_traits
+[06/07/2023 10:35:58] Notification: Success sending asura_necromancers_evolutionary_traits
+[06/07/2023 10:35:59] Notification: Success sending asura_necromancers_evolutionary_traits
+[06/07/2023 10:35:59] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:36:00] Notification: Success sending flame_nine_heavens_swordmaster
+[06/07/2023 10:36:35] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:38:35] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:39:43] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:39:59] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:40:00] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:40:12] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:40:52] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:41:07] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:44:49] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:45:10] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:46:30] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:47:05] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:48:57] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:49:23] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:49:35] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 10:49:47] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 11:36:32] Notification: Success sending asura_relife_player
+[06/07/2023 11:36:33] Notification: Success sending asura_sss-class_suicide_hunter
+[06/07/2023 11:36:34] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 11:37:32] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 11:45:40] Notification: Success sending asura_wandering_warrior_of_wudang
+[06/07/2023 11:49:40] Notification: Success sending asura_wandering_warrior_of_wudang

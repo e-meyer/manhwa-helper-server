@@ -4,8 +4,8 @@ import os
 
 from helpers.file_handler import load_manhwa_data
 from helpers.request_scanlator_data import request_scanlator_data
-from test_notifications import send_notification_topic
-from test_notifications import get_clean_topic
+from notifications_sender import send_notification_topic
+from notifications_sender import get_clean_topic
 from scanlators.reaper.reaper_periodical_scraping import reaper_periodical_scraping
 from scanlators.luminous.luminous_periodical_scraping import luminous_periodical_scraping
 from scanlators.asura.asura_periodical_scraping import asura_periodical_scraping
@@ -197,7 +197,6 @@ def send_notifications():
                         notifications.append(notification)
 
     for notification in notifications:
-        # print(json.dumps(notification, indent=2))
         scanlator = notification['scanlator']
         notification.pop('scanlator', None)
         title = notification['manhwa_title']
