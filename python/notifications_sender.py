@@ -1,3 +1,4 @@
+import re
 import sys
 import firebase_admin
 from firebase_admin import credentials
@@ -13,6 +14,7 @@ db = firestore.client()
 
 
 def send_notification_topic(item, data):
+    data['notification_timestamp'] = datetime.utcnow().isoformat()
     message = messaging.Message(
         data=data,
         notification=messaging.Notification(
@@ -41,7 +43,11 @@ def save_notification_to_firestore(data, item):
 
 
 def get_clean_topic(scanlator_name, topic):
-    return scanlator_name.strip().lower() + '_' + topic.strip().replace('`', '').replace('’', '').replace(',', '').replace('\'', '').replace('!', '').replace(' ', '_').lower()
+    cleaned_string = re.sub(r'[^A-Za-z0-9\s]', '', topic)
+    words = re.split(r'\s+', cleaned_string)
+    joined_string = "_".join(words)
+    transformed_string = joined_string.lower()
+    return scanlator_name.strip().lower() + '_' + transformed_string
 
 
 def write_log(log_message):

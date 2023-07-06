@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from time import sleep
 import os
 
 from helpers.file_handler import load_manhwa_data
@@ -189,7 +190,6 @@ def send_notifications():
                             'chapter_number': f'Chapter {chapter_number}',
                             'chapter_url': chapter_url,
                             'cover_url': item['cover_url'],
-                            'notification_timestamp': datetime.utcnow().isoformat()
                         }
                         if 'smaller_cover_url' in item:
                             notification['smaller_cover_url'] = item['smaller_cover_url']
