@@ -1,7 +1,11 @@
+from datetime import datetime
 import json
+import os
 
 from helpers.file_handler import load_manhwa_data
 from helpers.request_scanlator_data import request_scanlator_data
+from test_notifications import send_notification_topic
+from test_notifications import get_clean_topic
 from scanlators.reaper.reaper_periodical_scraping import reaper_periodical_scraping
 from scanlators.luminous.luminous_periodical_scraping import luminous_periodical_scraping
 from scanlators.asura.asura_periodical_scraping import asura_periodical_scraping
@@ -9,7 +13,7 @@ from scanlators.flame.flame_periodical_scraping import flame_periodical_scraping
 
 SCANLATORS = [
     "asura",
-    # "flame",
+    "flame",
     # "luminous",
     # "reaper"
 ]
@@ -87,37 +91,37 @@ def call():
 
         update_latest_chapter(item, result)
 
-    print(json.dumps(result, indent=2))
+    # print(json.dumps(result, indent=2))
+    send_notifications()
 
 
 def update_latest_chapter(scanlator_name, new_data):
-    for item in new_data:
-        file_name = f"data/{scanlator_name}.json"
-        with open(file_name, 'r') as f:
-            existing_data = json.load(f)
+    file_name = f"data/{scanlator_name}.json"
+    with open(file_name, 'r') as f:
+        existing_data = json.load(f)
 
-        existing_data_dict = {d['title']: d for d in existing_data}
+    existing_data_dict = {d['title']: d for d in existing_data}
 
-        for data in new_data:
-            if data['title'] in existing_data_dict:
-                existing_data_dict[data['title']]['latest_chapter'] = str(
-                    max(data['new_chapters_numbers'], default=0))
-            else:
-                new_title = {
-                    'title': data['title'],
-                    'page_url': data['page_url'],
-                    'cover_url': data['cover_url'],
-                    'latest_chapter': str(max(data['new_chapters_numbers'], default=0))
-                }
-                if 'smaller_cover_url' in data:
-                    new_title['smaller_cover_url'] = data['smaller_cover_url']
-                existing_data.append(new_title)
+    for data in new_data:
+        if data['title'] in existing_data_dict:
+            existing_data_dict[data['title']]['latest_chapter'] = str(
+                max(data['new_chapters_numbers'], default=0))
+        else:
+            new_title = {
+                'title': data['title'],
+                'page_url': data['page_url'],
+                'cover_url': data['cover_url'],
+                'latest_chapter': str(max(data['new_chapters_numbers'], default=0))
+            }
+            if 'smaller_cover_url' in data:
+                new_title['smaller_cover_url'] = data['smaller_cover_url']
+            existing_data.append(new_title)
 
-        with open(file_name, 'w') as f:
-            json.dump(existing_data, f, indent=2)
+    with open(file_name, 'w') as f:
+        json.dump(existing_data, f, indent=2)
 
-        with open(f"data/notifications/{scanlator_name}.json", 'w') as f:
-            json.dump(new_data, f, indent=2)
+    with open(f"data/notifications/{scanlator_name}.json", 'w') as f:
+        json.dump(new_data, f, indent=2)
 
 
 def get_updated_manhwas(scanlator_name, new_data, existing_data_dict, result):
@@ -168,6 +172,37 @@ def get_updated_manhwas(scanlator_name, new_data, existing_data_dict, result):
                 new_item['smaller_cover_url'] = data['smaller_cover_url']
             result.append(new_item)
     return result
+
+
+def send_notifications():
+    notifications = []
+    for scanlator in SCANLATORS:
+        with open(f"data/notifications/{scanlator}.json", 'r') as f:
+            data = json.load(f)
+
+            if data:
+                for item in data:
+                    for chapter_number, chapter_url in zip(item['new_chapters_numbers'], item['new_chapters_urls']):
+                        notification = {
+                            'scanlator': scanlator,
+                            'manhwa_title': item['title'],
+                            'chapter_number': f'Chapter {chapter_number}',
+                            'chapter_url': chapter_url,
+                            'cover_url': item['cover_url'],
+                            'notification_timestamp': datetime.utcnow().isoformat()
+                        }
+                        if 'smaller_cover_url' in item:
+                            notification['smaller_cover_url'] = item['smaller_cover_url']
+
+                        notifications.append(notification)
+
+    for notification in notifications:
+        # print(json.dumps(notification, indent=2))
+        scanlator = notification['scanlator']
+        notification.pop('scanlator', None)
+        title = notification['manhwa_title']
+        topic = get_clean_topic(scanlator, title)
+        send_notification_topic(topic, notification)
 
 
 def main():
