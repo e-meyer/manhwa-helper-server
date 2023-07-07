@@ -5,19 +5,24 @@ from bs4 import BeautifulSoup
 
 def asura_initial_latest_chapter(resp, selectors):
     soup = BeautifulSoup(resp.text, 'lxml')
-    titles = [element.get('title', '').strip()
-              for element in soup.select(selectors["title_selector"])]
-
-    chapter_items = soup.select(selectors["chapters_selector"])
-    chapters = [item.get_text().strip() for item in chapter_items]
-
     manhwa_data = []
-    for i, title in enumerate(titles):
-        latest_chapter = 0 if i >= len(
-            chapters) else get_chapter_number(chapters[i])
+
+    uta_divs = soup.select('div.uta')
+
+    for div in uta_divs:
+        title = div.select_one(selectors["title_selector"]).get(
+            'title', '').strip()
+
+        first_chapter_item = div.select_one(selectors["chapters_selector"])
+        if first_chapter_item is not None:
+            first_chapter = get_chapter_number(
+                first_chapter_item.get_text().strip())
+        else:
+            first_chapter = 0
+
         manhwa_data.append({
             "title": title,
-            "latest_chapter": latest_chapter,
+            "latest_chapter": first_chapter,
         })
 
     return manhwa_data
