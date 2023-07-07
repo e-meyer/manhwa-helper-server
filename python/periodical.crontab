@@ -1,0 +1,1 @@
+*/10 * * * * python3 -B /home/ubuntu/scraper/periodical_scraper.py >> /home/ubuntu/scraper/cron.log 2>&1
