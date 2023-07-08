@@ -15,8 +15,8 @@ from scanlators.flame.flame_periodical_scraping import flame_periodical_scraping
 SCANLATORS = [
     "asura",
     "flame",
-    # "luminous",
-    # "reaper"
+    "luminous",
+    "reaper"
 ]
 
 
@@ -183,6 +183,9 @@ def send_notifications():
 
             if data:
                 for item in data:
+                    item['new_chapters_numbers'] = item['new_chapters_numbers'][::-1]
+                    item['new_chapters_urls'] = item['new_chapters_urls'][::-1]
+
                     for chapter_number, chapter_url in zip(item['new_chapters_numbers'], item['new_chapters_urls']):
                         notification = {
                             'scanlator': scanlator,
