@@ -8,7 +8,7 @@ from scanlators.luminous.luminous_initial_latest_chapter import luminous_initial
 from scanlators.reaper.reaper_initial_latest_chapter import reaper_initial_latest_chapter
 
 SCANLATORS = [
-    "asura",
+    # "asura",
     "flame",
     # "luminous",
     # "reaper"

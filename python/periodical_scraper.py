@@ -13,10 +13,10 @@ from scanlators.asura.asura_periodical_scraping import asura_periodical_scraping
 from scanlators.flame.flame_periodical_scraping import flame_periodical_scraping
 
 SCANLATORS = [
-    "asura",
+    # "asura",
     "flame",
-    "luminous",
-    "reaper"
+    # "luminous",
+    # "reaper"
 ]
 
 

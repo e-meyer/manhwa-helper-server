@@ -9,10 +9,10 @@ from scanlators.reaper.reaper_initial_data import reaper_initial_data
 
 
 SCANLATORS = [
-    "asura",
+    # "asura",
     "flame",
-    "luminous",
-    "reaper"
+    # "luminous",
+    # "reaper"
 ]
 
 
