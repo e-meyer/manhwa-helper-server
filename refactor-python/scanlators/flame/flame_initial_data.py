@@ -1,73 +1,53 @@
 from bs4 import BeautifulSoup
 import re
 
+from helpers.get_smaller_cover_url import get_smaller_cover_url
+
 
 def flame_initial_data(resp, selectors):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     latest_divs = soup.select('div.latest-updates > div.bs')
-    test = []
-    for div in latest_divs:
-        page_url = soup.select_one(selectors["manhwa_page_url_selector"])
-
-        title = soup.select_one(selectors["title_selector"]).get_text().strip()
-
-        cover_url = soup.select_one(selectors["cover_url_selector"])
-
-        cover_url = cover_url.get('src', '')
-
-        status = soup.find_next("div", class_="status")
-        test.append(cover_url)
-
-    print(test)
-    return
-
-    page_url = [element.get('href', '').strip()
-                for element in soup.select(selectors["manhwa_page_url_selector"])]
-
-    title_elements = soup.select(selectors["title_selector"])
-    titles = [title.get_text().strip() for title in title_elements]
-
-    cover_url = [element.get('src', '').strip()
-                 for element in soup.select(selectors["cover_url_selector"])]
-
-    status_divs = soup.find_all("div", class_="status")
-    status = []
-
-    # chapter_items = soup.select(selectors["chapters_selector"])
-
-    # chapters = [item.get_text().strip()
-    #             for item in chapter_items]
-
-    for status_div in status_divs:
-        i_tag = status_div.find("i")
-        status.append(i_tag.text)
 
     manhwa_data = []
 
-    for i, title in enumerate(titles):
-        if status[i] != "Dropped":
-            first_chapter_item = div.select_one(selectors["chapters_selector"])
-            if first_chapter_item is not None:
-                first_chapter = first_chapter_item.get_text().strip()
-            else:
-                first_chapter = 0
+    for div in latest_divs:
+        # Title
+        title = div.select_one(selectors["title_selector"])
+        title = title.get_text().strip()
 
-            cover = cover_url[i]
-            pattern = r"-\d{3}x\d{3}"
+        # Page URL
+        page_url = div.select_one(selectors["manhwa_page_url_selector"])
+        page_url = page_url.get('href', '')
+        
+        # Cover URL
+        cover_url = div.select_one(selectors["cover_url_selector"])
+        cover_url = cover_url.get('src', '')
+        smaller_cover_url = get_smaller_cover_url(cover_url) 
 
-            new_url = re.sub(pattern, "", cover)
+        # Status label
+        status = div.select_one("div.imptdt > div.status")
+        status = status.get_text().strip()
 
-            data = {
-                "title": title,
-                "page_url": page_url[i],
-                "cover_url": new_url,
-                "latest_chapter_label": first_chapter
-            }
+        # Latest chapter
+        latest_chapter_label = div.select_one(selectors["chapters_selector"])
+        if latest_chapter_label is not None:
+            latest_chapter = latest_chapter_label.get_text().strip()
+        else:
+            latest_chapter = 'No chapters yet'
 
-            if new_url != cover_url[i]:
-                data["smaller_cover_url"] = cover_url[i]
+        data = {
+            "title": title,
+            "page_url": page_url,
+            "latest_chapter_label": latest_chapter,
+            "status": status,
+            "cover_url": cover_url
+        }
 
-            manhwa_data.append(data)
+        if smaller_cover_url != cover_url:
+            data["smaller_cover_url"] = cover_url
+
+        manhwa_data.append(data)
 
     return manhwa_data
+
