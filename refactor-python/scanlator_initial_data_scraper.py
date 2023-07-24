@@ -9,8 +9,8 @@ from scanlators.reaper.reaper_initial_data import reaper_initial_data
 
 
 SCANLATORS = [
-    # "asura",
-    "flame",
+    "asura",
+    # "flame",
     # "luminous",
     # "reaper"
 ]
@@ -26,13 +26,14 @@ SCANLATOR_URL = {
 
 SCANLATOR_INITIAL_DATA_SELECTOR = {
     "asura": {
-        "manhwa_page_url_selector": "div.bsx > a",
-        "title_selector": "div.bigor > div.tt",
-        "cover_url_selector": "div.limit > img"
+        "title_selector": "div.luf > a.series",
+        "manhwa_page_url_selector": "div.listupd > div.utao > div.uta > div.luf > a",
+        "cover_url_selector": "div.listupd > div.utao > div.uta > div.imgu > a > img",
+        "chapters_selector": "div.luf > ul > li:first-child > a"
     },
     "flame": {
-        "manhwa_page_url_selector": "div.latest-updates > div.bs > div.bsx > a",
         "title_selector": "div.latest-updates > div.bs > div.bsx > div.bigor > div.info > a > div.tt",
+        "manhwa_page_url_selector": "div.latest-updates > div.bs > div.bsx > a",
         "cover_url_selector": "div.latest-updates > div.bs > div.bsx > a > div.limit > img",
         "chapters_selector": "a:first-child > div.adds > div.epxs"
     },
@@ -81,7 +82,8 @@ def call():
             scanlator_scraper_function = SCANLATOR_INITIAL_DATA_SCRAPER_FUNCTION[scanlator]
 
             data_returned = scanlator_scraper_function(response, selector)
-
+            print(data_returned)
+            break
             if len(data_returned) == 0:
                 break
 
