@@ -92,7 +92,6 @@ def call():
 
         update_latest_chapter(item, result)
 
-    # print(json.dumps(result, indent=2))
     send_notifications()
 
 
