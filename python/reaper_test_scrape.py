@@ -4,21 +4,25 @@ import json
 from bs4 import BeautifulSoup
 import random
 import string
-
-# Constants
-headers = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
-    }
+import httpx
 
 
 def reaper_scraper(page, query):
+    client = httpx.Client(http2=True)
+    response = client.get("https://reaperscans.com")
+    print(response)
+    return
     base_url = "https://reaperscans.com"
     route_name = 'frontend.dtddzhx-ghvjlgrpt'
-    
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+    }
+
     response = requests.get(base_url, headers=headers)
 
     soup = BeautifulSoup(response.content, 'html.parser')
-
+    print(soup)
     csrf_token = soup.select_one("meta[name=\"csrf-token\"]")['content']
     print(csrf_token)
 
@@ -65,7 +69,7 @@ def reaper_scraper(page, query):
     req = requests.post(
         url='https://reaperscans.com/livewire/message/frontend.dtddzhx-ghvjlgrpt', headers=headers, data=payload)
     print(response.status_code)
-    
+
     return req.content
 
 
