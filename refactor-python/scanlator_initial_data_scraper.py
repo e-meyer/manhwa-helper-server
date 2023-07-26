@@ -9,10 +9,10 @@ from scanlators.reaper.reaper_initial_data import reaper_initial_data
 
 
 SCANLATORS = [
-    "asura",
+    # "asura",
     # "flame",
     # "luminous",
-    # "reaper"
+    "reaper"
 ]
 
 
@@ -20,7 +20,7 @@ SCANLATOR_URL = {
     "asura": "https://www.asurascans.com/manga/?page=",
     "flame": "https://flamescans.org/page/",
     "luminous": "https://www.luminousscans.com/series/?page=",
-    "reaper": "https://reaperscans.com/comics?page="
+    "reaper": "https://reaperscans.com/latest/comics?page="
 }
 
 
@@ -44,8 +44,9 @@ SCANLATOR_INITIAL_DATA_SELECTOR = {
     },
     "reaper": {
         "manhwa_page_url_selector": "li > div > a",
-        "title_selector": "li > div > ",
-        "cover_url_selector": "li > div > a > img"
+        "title_selector": "div > div > p > a",
+        "cover_url_selector": "li > div > a > img",
+        "chapters_selector": "div.grid > div > div > div > div > a"
     }
 }
 
@@ -72,10 +73,12 @@ def call():
                 response = request_scanlator_data(
                     url,
                     headers={
-                        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0"
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 OPR/100.0.0.0",
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
                     },
                 )
             except Exception as e:
+                print(e)
                 break
 
             selector = SCANLATOR_INITIAL_DATA_SELECTOR[scanlator]
