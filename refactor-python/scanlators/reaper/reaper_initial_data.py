@@ -9,23 +9,29 @@ import requests
 def reaper_initial_data(resp, selectors):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
-    li_tags = soup.find_all('li')
+    divs = soup.select_one('div.grid > div.relative')
 
     titles = []
     page_url = []
     cover_url = []
 
-    for li in li_tags:
-        a_tags = li.find_all('a')
+    for div in divs:
+        # Title
+        title = div.select_one(selectors['title_selector'])
+        print(title)
 
-        if len(a_tags) >= 2:
-            page_url.append(a_tags[0].get('href'))
+        # Chapters
+        chapters = div.select_one(selectors['chapters_selector'])
+        print(chapters)
+        return
+        # if len(a_tags) >= 2:
+        #     page_url.append(a_tags[0].get('href'))
 
-            img_tag = a_tags[0].find('img')
-            cover_url.append(img_tag.get('src'))
+        #     img_tag = a_tags[0].find('img')
+        #     cover_url.append(img_tag.get('src'))
 
-            titles.append(a_tags[1].get_text(strip=True))
-
+        #     titles.append(a_tags[1].get_text(strip=True))
+    return
     # chapters_elements = soup.find_all('dl')
     # chapters = []
     # for dl in chapters_elements:
