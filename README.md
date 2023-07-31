@@ -8,5 +8,3 @@
 I've tried Node.js for scraping but noticed that Python performs considerably better.
 
 Because Dart can't handle Cloudflare very well, and some websites have it implemented, and also because I've been interested in backend development lately, I decided to develop an API and leave that to the backend.
-
-It's currently hosted on an AWS instance, but I should just move it to AWS API Gateway later.
